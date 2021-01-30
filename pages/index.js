@@ -1,65 +1,91 @@
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import { useContext, useEffect } from "react";
 
-export default function Home() {
+import { ShopContext } from "contexts/ShopContext";
+
+import BaseLayout from "components/layout/BaseLayout";
+import Hero from "components/Hero";
+import RichText from "components/RichText";
+import TextWithImage from "components/TextWithImage";
+import CollectionCard from "components/products/CollectionCard";
+import Loading from "components/ui/Loading";
+import { opaText, shedText, safeHarborText } from "config/supportText";
+
+import { Grid, Box } from "@chakra-ui/react";
+
+const Home = () => {
+  const {
+    fecthAllCollectionNoProducts,
+    fetchCollectionById,
+    collections,
+  } = useContext(ShopContext);
+
+  useEffect(() => {
+    fecthAllCollectionNoProducts();
+  }, [fetchCollectionById]);
+
+  const displayProducts = () => {
+    return collections.length === 0 ? (
+      <Loading />
+    ) : (
+      collections.map((collection) => (
+        <CollectionCard key={collection.id} collection={collection} />
+      ))
+    );
+  };
+
   return (
-    <div className={styles.container}>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
+    <BaseLayout>
+      <Box>
+        <Hero />
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
+        <RichText
+          heading="801 Pickleball's Product Collections"
+          text="Hoodies, T-Shirts, Stickers and more..."
+          mb="1rem"
+        />
 
-        <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
-        </p>
+        <Grid p="1rem" templateColumns={["repeat(1, 1fr)", "repeat(3, 1fr)"]}>
+          {displayProducts()}
+        </Grid>
 
-        <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h3>Documentation &rarr;</h3>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
+        <RichText
+          mb="2rem"
+          heading="801 pickleball support"
+          bgDark="brand.dark.600"
+        />
 
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h3>Learn &rarr;</h3>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
-          </a>
+        <TextWithImage
+          reverse
+          heading="Ogden Pickleball Association"
+          image="https://ogdenpickleball.org/wp-content/uploads/2020/12/Main-Logo-180x179.png"
+          text={opaText()}
+          btnText="Join"
+          btnAction={() => window.open("https://ogdenpickleball.org/join-now/")}
+        />
 
-          <a
-            href="https://github.com/vercel/next.js/tree/master/examples"
-            className={styles.card}
-          >
-            <h3>Examples &rarr;</h3>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
-          </a>
+        <TextWithImage
+          heading="The Shed"
+          image="https://static.wixstatic.com/media/b12b21_a8d7286bd62143b0b985da7c304ba16c~mv2_d_2398_1201_s_2.png/v1/fill/w_1554,h_439,fp_0.50_0.50,q_90,usm_0.66_1.00_0.01/b12b21_a8d7286bd62143b0b985da7c304ba16c~mv2_d_2398_1201_s_2.webp"
+          text={shedText()}
+          btnText="Schedule"
+          btnAction={() => {
+            window.open("https://www.theshedpb.com/");
+          }}
+        />
 
-          <a
-            href="https://vercel.com/import?filter=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-          >
-            <h3>Deploy &rarr;</h3>
-            <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
-            </p>
-          </a>
-        </div>
-      </main>
+        <TextWithImage
+          reverse
+          heading="Safe Harbor"
+          image="https://safeharborhope.org/wp-content/uploads/2019/04/2019_SafeHarbor_LogoHorizontal_340x103px.jpg"
+          text={safeHarborText()}
+          btnText="Donate"
+          btnAction={() => {
+            window.open("https://safeharborhope.org/");
+          }}
+        />
+      </Box>
+    </BaseLayout>
+  );
+};
 
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-        </a>
-      </footer>
-    </div>
-  )
-}
+export default Home;

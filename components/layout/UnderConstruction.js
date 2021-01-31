@@ -5,7 +5,7 @@ import styles from "styles/Hero.module.css";
 const UnderConstruction = () => {
   return (
     <Box
-      pt="1rem"
+      pt="5rem"
       className={styles.heroGradient}
       w="100%"
       position="relative"

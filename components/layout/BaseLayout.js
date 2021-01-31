@@ -18,11 +18,18 @@ const BaseLayout = ({ seo = {}, children }) => {
         <title>{title}</title>
         <meta name="description" content={description} />
       </Head>
-      <Navbar />
-      <NavMenu />
-      <Cart />
-      {UNDER_CONSTRUCTION ? <UnderConstruction /> : children}
-      <Footer />
+
+      {UNDER_CONSTRUCTION ? (
+        <UnderConstruction />
+      ) : (
+        <>
+          <Navbar />
+          <NavMenu />
+          <Cart />
+          {children}
+          <Footer />
+        </>
+      )}
     </>
   );
 };

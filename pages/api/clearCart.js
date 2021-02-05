@@ -1,6 +1,6 @@
-import { clearCart } from "config/helpers";
+import { clearCheckout } from "config/helpers";
 
 export default (req, res) => {
-  clearCart();
+  clearCheckout();
   res.redirect("/products");
 };

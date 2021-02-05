@@ -56,7 +56,6 @@ const Cart = () => {
                   color="white"
                   backgroundColor="darkgreen"
                   _hover={{ opacity: "70%" }}
-                  onClick={handleCheckout}
                 >
                   Checkout
                 </Button>

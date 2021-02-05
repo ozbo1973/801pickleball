@@ -22,7 +22,11 @@ const Cart = () => {
   const displayCartItems = () => {
     return checkout.lineItems?.length ? (
       checkout.lineItems.map((item) => (
-        <CartItem item={item} removeAction={removeLineItem} />
+        <CartItem
+          key={`cartItem_${item.id}`}
+          item={item}
+          removeAction={removeLineItem}
+        />
       ))
     ) : (
       <EmptyCart />
@@ -52,6 +56,7 @@ const Cart = () => {
                   color="white"
                   backgroundColor="darkgreen"
                   _hover={{ opacity: "70%" }}
+                  onClick={handleCheckout}
                 >
                   Checkout
                 </Button>

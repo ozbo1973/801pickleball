@@ -10,8 +10,11 @@ const client = Client.buildClient({
 
 const ShopContext = createContext();
 
-const handleLocalStorage = (key, val) => {
+const handleLocalStorage = (key, val, remove) => {
   if (!window !== "undefined") {
+    if (remove) {
+      return localStorage.removeItem(key);
+    }
     if (!val) {
       return localStorage[key];
     } else {
@@ -43,6 +46,13 @@ export class ShopProvider extends Component {
     const checkout = await client.checkout.create();
     handleLocalStorage("checkout_id", checkout.id);
     this.setState({ ...this.state, checkout });
+  };
+
+  clearCheckout = async () => {
+    const checkout = {};
+    handleLocalStorage("checkout_id", checkout, "remove");
+    this.setState({ ...this.state, checkout });
+    await this.createCheckout();
   };
 
   fetchCheckout = async (checkoutId) => {
@@ -126,6 +136,7 @@ export class ShopProvider extends Component {
           openMenu: this.openMenu,
           closeMenu: this.closeMenu,
           createCheckout: this.createCheckout,
+          clearCheckout: this.clearCheckout,
         }}
       >
         {this.props.children}

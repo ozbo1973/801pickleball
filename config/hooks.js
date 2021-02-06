@@ -1,19 +1,17 @@
 import { useEffect, useContext } from "react";
 import { useRouter } from "next/router";
-import { clearCheckout } from "config/helpers";
 import { ShopContext } from "contexts/ShopContext";
 
 export const useRemoveCheckout = () => {
   const router = useRouter();
-  const { removeCheckout = null } = router.query;
-  const { createCheckout } = useContext(ShopContext);
+  const { completedOrder = null } = router.query;
+  const { clearCheckout } = useContext(ShopContext);
 
   useEffect(() => {
     const remove = async () => {
-      if (removeCheckout) {
-        clearCheckout();
-        await createCheckout();
-        delete router.query.removeCheckout;
+      if (completedOrder) {
+        await clearCheckout();
+        delete router.query.completedOrder;
 
         router.replace({
           pathname: router.pathname,
@@ -22,6 +20,6 @@ export const useRemoveCheckout = () => {
       }
     };
     return remove();
-  }, [removeCheckout]);
+  }, [completedOrder]);
   return;
 };

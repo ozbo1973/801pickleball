@@ -1,5 +1,4 @@
 import { useContext } from "react";
-import { useRouter } from "next/router";
 import { ShopContext } from "contexts/ShopContext";
 import EmptyCart from "components/products/EmptyCart";
 import CartItem from "components/products/CartItem";
@@ -17,16 +16,16 @@ import {
 } from "@chakra-ui/react";
 
 const Cart = () => {
-  const { isCartOpen, closeCart, checkout, removeLineItem } = useContext(
-    ShopContext
-  );
-  const router = useRouter();
+  const {
+    isCartOpen,
+    closeCart,
+    checkout,
+    removeLineItem,
+    clearCheckout,
+  } = useContext(ShopContext);
 
   const handleClearCheckout = () => {
-    router.replace({
-      pathname: router.pathname,
-      query: { ...router.query, removeCheckout: true },
-    });
+    clearCheckout();
     closeCart();
   };
 

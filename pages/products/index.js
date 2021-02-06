@@ -5,7 +5,6 @@ import { ShopContext } from "contexts/ShopContext";
 import BaseLayout from "components/layout/BaseLayout";
 import CollectionMenu from "components/products/CollectionMenu";
 import ProductCard from "components/products/ProductCard";
-import ShopHeading from "components/products/ShopHeading";
 import Loading from "components/ui/Loading";
 import { Box, Wrap, WrapItem, VStack, Center, Text } from "@chakra-ui/react";
 
@@ -16,7 +15,8 @@ const Shop = () => {
     products,
     collections,
   } = useContext(ShopContext);
-  const { collectionId = null } = useRouter().query;
+  const router = useRouter();
+  const { collectionId = null } = router.query;
   const { title, description } = currentCollection(collectionId, collections);
 
   const seo = {
@@ -51,7 +51,7 @@ const Shop = () => {
           <Center mb="1rem">
             <Text fontSize="3xl">{title}</Text>
           </Center>
-          {/* <ShopHeading collectionId={collectionId} collections={collections} /> */}
+
           <CollectionMenu />
         </VStack>
 

@@ -125,6 +125,7 @@ export class ShopProvider extends Component {
           closeCart: this.closeCart,
           openMenu: this.openMenu,
           closeMenu: this.closeMenu,
+          createCheckout: this.createCheckout,
         }}
       >
         {this.props.children}

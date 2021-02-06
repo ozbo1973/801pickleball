@@ -1,6 +1,7 @@
-import { clearCheckout } from "config/helpers";
+import ls from "local-storage";
 
 export default (req, res) => {
-  clearCheckout();
+  console.log(ls.get("checkout_id"));
+  ls.remove("checkout_id");
   res.redirect("/products");
 };

@@ -1,6 +1,5 @@
 import Head from "next/head";
 import { UNDER_CONSTRUCTION } from "config";
-import { useRemoveCheckout } from "config/hooks";
 import Navbar from "components/nav/Navbar";
 import NavMenu from "components/nav/NavMenu";
 import Cart from "components/products/Cart";
@@ -12,7 +11,6 @@ const BaseLayout = ({ seo = {}, children }) => {
     title = "Shop 801 Pickleball",
     description = "Play pickleball in style and represent Utah with the collection of 801 pickleball clothing and soft prodducts.  ",
   } = seo;
-  useRemoveCheckout();
 
   return (
     <>

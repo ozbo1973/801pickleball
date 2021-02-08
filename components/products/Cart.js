@@ -13,6 +13,8 @@ import {
   VStack,
   Link,
   Button,
+  Box,
+  Text,
 } from "@chakra-ui/react";
 
 const Cart = () => {
@@ -22,11 +24,14 @@ const Cart = () => {
     checkout,
     removeLineItem,
     clearCheckout,
+    createCheckout,
+    thirdPartyCheckout,
   } = useContext(ShopContext);
 
   const handleClearCheckout = () => {
     clearCheckout();
     closeCart();
+    createCheckout();
   };
 
   const displayCartItems = () => {
@@ -60,6 +65,11 @@ const Cart = () => {
 
             <DrawerFooter>
               <VStack width="100%" spacing={3}>
+                <Box display={thirdPartyCheckout ? "flex" : "none"}>
+                  <Text color="brand.red.800">
+                    Warning: Closing cart will remove access to previous order.
+                  </Text>
+                </Box>
                 <Link w="100%" href={checkout.webUrl}>
                   <Button
                     isDisabled={!checkout.lineItems?.length}
@@ -68,7 +78,7 @@ const Cart = () => {
                     backgroundColor="darkgreen"
                     _hover={{ opacity: "70%" }}
                   >
-                    Checkout
+                    {thirdPartyCheckout ? "View Previous Order" : "Checkout"}
                   </Button>
                 </Link>
 
@@ -80,7 +90,9 @@ const Cart = () => {
                   _hover={{ opacity: "70%" }}
                   onClick={handleClearCheckout}
                 >
-                  Clear Cart
+                  {thirdPartyCheckout
+                    ? "Clear Previous Checkout"
+                    : "Empty Cart"}
                 </Button>
               </VStack>
             </DrawerFooter>

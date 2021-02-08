@@ -5,9 +5,13 @@ import Button from "components/ui/MainButton";
 import { Box, Heading, VStack, Center } from "@chakra-ui/react";
 
 const completed = () => {
-  const orderStatus = useRemoveCheckout("/products", {});
+  const orderStatus = useRemoveCheckout("shopify");
 
   const displayContent = () => {
+    if (orderStatus.thirdParty) {
+      return orderStatus.redirectThirdParty("/products", {});
+    }
+
     orderStatus.loading ? (
       <Loading />
     ) : (

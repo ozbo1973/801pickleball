@@ -1,4 +1,4 @@
-import { UNDER_CONSTRUCTION_TEXT } from "config";
+import { UNDER_CONSTRUCTION } from "config";
 import { Box, Center, Image, Text, VStack } from "@chakra-ui/react";
 import styles from "styles/Hero.module.css";
 
@@ -40,9 +40,7 @@ const UnderConstruction = () => {
             fontWeight="bold"
             fontSize={["1.5rem", "3rem"]}
           >
-            {UNDER_CONSTRUCTION_TEXT
-              ? UNDER_CONSTRUCTION_TEXT
-              : " Site temporarily under construction."}
+            {UNDER_CONSTRUCTION}
           </Text>
         </VStack>
       </Center>

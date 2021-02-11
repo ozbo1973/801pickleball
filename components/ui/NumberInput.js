@@ -14,6 +14,7 @@ const InputNumber = ({ label, handleInput, defaultValue }) => (
     <NumberInput
       onChange={(val) => handleInput(val)}
       defaultValue={defaultValue}
+      min={0}
     >
       <NumberInputField />
       <NumberInputStepper>

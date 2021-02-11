@@ -63,7 +63,7 @@ export class ShopProvider extends Component {
     this.setState({ ...this.state, checkout: checkout || {} });
   };
 
-  addItemToCheckout = async (variantId, quantity) => {
+  addItemToCheckout = async (variantId, quantity, showCart) => {
     const lineItemsToAdd = [
       {
         variantId,
@@ -77,7 +77,7 @@ export class ShopProvider extends Component {
     );
 
     this.setState({ ...this.state, checkout });
-    this.openCart();
+    showCart && this.openCart();
   };
 
   removeLineItem = async (lineItemId) => {

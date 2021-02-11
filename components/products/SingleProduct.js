@@ -50,7 +50,11 @@ const SingleProduct = ({ product }) => {
         </Stack>
         <NoInputControl color="brand.dark.300" info={product.description} />
 
-        <AddToCart product={product.variants[size]} quantity={quantity} />
+        <AddToCart
+          product={product.variants[size]}
+          quantity={quantity}
+          showCart
+        />
       </Flex>
     </Grid>
   );

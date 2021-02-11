@@ -37,7 +37,7 @@ const Shop = () => {
       <Loading />
     ) : (
       products.map((product) => (
-        <WrapItem key={`wrap_${product.id}`}>
+        <WrapItem mb="1rem" key={`wrap_${product.id}`}>
           <ProductCard product={product} />
         </WrapItem>
       ))
@@ -55,7 +55,7 @@ const Shop = () => {
           <CollectionMenu />
         </VStack>
 
-        <Wrap justify="center">{displayProducts()}</Wrap>
+        <Wrap justify="space-evenly">{displayProducts()}</Wrap>
       </Box>
     </BaseLayout>
   );

@@ -10,7 +10,7 @@ import UnderConstruction from "components/layout/UnderConstruction";
 const BaseLayout = ({ seo = {}, children }) => {
   const router = useRouter();
   const {
-    title = "Shop 801 Pickleball",
+    title = "801 Pickleball - Shop",
     description = "Play pickleball in style and represent Utah with the collection of 801 pickleball clothing and soft prodducts.  ",
     ogImage = '"https://cdn.shopify.com/s/files/1/0528/7798/3897/files/logo-801.webp?v=1611838470"',
     ogURL = `${BASE_URL}${router.asPath}`,

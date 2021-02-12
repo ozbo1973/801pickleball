@@ -33,30 +33,31 @@ const Shop = () => {
   }, [collectionId]);
 
   const displayProducts = () => {
-    return !products ? (
+    return products?.length === 0 ? (
       <Loading />
     ) : (
-      products.map((product) => (
-        <WrapItem mb="1rem" key={`wrap_${product.id}`}>
-          <ProductCard product={product} />
-        </WrapItem>
-      ))
+      products.length > 0 &&
+        products.map((product) => (
+          <WrapItem mb="1rem" key={`wrap_${product.id}`}>
+            <ProductCard product={product} />
+          </WrapItem>
+        ))
     );
   };
 
   return (
     <BaseLayout seo={seo}>
-      <Box p="1rem">
-        <VStack p="2rem">
-          <Center mb="1rem">
-            <Text fontSize="3xl">{title}</Text>
-          </Center>
+      <VStack p="2rem">
+        <Center mb="1rem">
+          <Text fontSize="3xl">{title}</Text>
+        </Center>
 
-          <CollectionMenu />
-        </VStack>
+        <CollectionMenu />
+      </VStack>
 
-        <Wrap justify="space-evenly">{displayProducts()}</Wrap>
-      </Box>
+      <Wrap spacing={2} justify="center">
+        {displayProducts()}
+      </Wrap>
     </BaseLayout>
   );
 };

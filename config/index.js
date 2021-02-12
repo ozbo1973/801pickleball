@@ -1,5 +1,7 @@
 const prod = process.env.NODE_ENV === "production";
 
+export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+
 export const SHOPIFY_API = prod
   ? process.env.NEXT_PUBLIC_SHOPIFY_API
   : process.env.NEXT_PUBLIC_SHOPIFY_API_DEV;

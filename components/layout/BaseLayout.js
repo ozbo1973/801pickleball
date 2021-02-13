@@ -6,6 +6,7 @@ import NavMenu from "components/nav/NavMenu";
 import Cart from "components/products/Cart";
 import Footer from "components/Footer";
 import UnderConstruction from "components/layout/UnderConstruction";
+import { Box } from "@chakra-ui/react";
 
 const BaseLayout = ({ seo = {}, children }) => {
   const router = useRouter();
@@ -47,13 +48,15 @@ const BaseLayout = ({ seo = {}, children }) => {
       {UNDER_CONSTRUCTION ? (
         <UnderConstruction />
       ) : (
-        <>
+        <Box h="100vh" display="flex" flexDir="column">
           <Navbar />
           <NavMenu />
           <Cart />
-          {children}
-          <Footer />
-        </>
+          <Box flexGrow={1}>{children}</Box>
+          <Box flexShrink={0}>
+            <Footer />
+          </Box>
+        </Box>
       )}
     </>
   );

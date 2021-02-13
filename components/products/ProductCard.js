@@ -1,15 +1,21 @@
 import { useState } from "react";
 import Link from "next/link";
+import { useSelectedVariant } from "config/hooks";
 import VariantOptions from "components/ui/VariantOptions";
 import AddToCartButton from "components/ui/AddToCartButton";
+import Loading from "components/ui/Loading";
 import NumberInput from "components/ui/NumberInput";
 import { Box, Badge, Image } from "@chakra-ui/react";
 
 const ProductCard = ({ product }) => {
-  const [size, setSize] = useState(0);
   const [quantity, setQuantity] = useState(1);
+  const { selectedVariant, setSize, loadingProduct } = useSelectedVariant(
+    product
+  );
 
-  return (
+  return loadingProduct ? (
+    <Loading />
+  ) : (
     <Box
       h="100%"
       maxW="sm"
@@ -39,32 +45,28 @@ const ProductCard = ({ product }) => {
       </Link>
 
       <Box p="3" flexGrow={1}>
-        <Box d="flex" alignItems="baseline">
-          <Badge borderRadius="full" px="2" colorScheme="teal">
-            In Stock
-          </Badge>
-
+        <Box d="flex" alignItems="baseline" justifyContent="space-between">
           <Box
             color="gray.500"
             fontWeight="semibold"
             letterSpacing="wide"
-            fontSize="xs"
+            as="h4"
             textTransform="uppercase"
-            ml="2"
+            mr="2"
           >
-            Other Data
+            {product.title}
           </Box>
-        </Box>
 
-        <Box mt="1" fontWeight="semibold" as="h4" lineHeight="tight">
-          {product.title}
-        </Box>
-
-        <Box>
-          {product.variants[0].price}
-          <Box as="span" color="gray.600" fontSize="sm">
-            / wk
-          </Box>
+          <Badge
+            p={1}
+            borderRadius="full"
+            px="2"
+            variant="outline"
+            border="2px brand.mix.b solid"
+            color="brand.mix.a"
+          >
+            $ {selectedVariant?.price || 0}
+          </Badge>
         </Box>
 
         <Box d="flex" mt="2" alignItems="center">
@@ -78,7 +80,7 @@ const ProductCard = ({ product }) => {
         <Box mb="2.5rem" d="flex" alignItems="baseline">
           <VariantOptions
             label={"Size"}
-            variant={product.variants}
+            product={product}
             handleChange={setSize}
           />
           <NumberInput
@@ -89,10 +91,11 @@ const ProductCard = ({ product }) => {
         </Box>
 
         <AddToCartButton
-          product={product.variants[size]}
+          product={selectedVariant}
           quantity={quantity}
           size="sm"
           w="100%"
+          showCart
         />
       </Box>
     </Box>

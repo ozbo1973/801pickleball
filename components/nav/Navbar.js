@@ -5,7 +5,7 @@ import { Flex, Image, Icon, Box, Badge } from "@chakra-ui/react";
 import { ShopContext } from "contexts/ShopContext";
 import { MdMenu, MdShoppingCart } from "react-icons/md";
 
-const ICON_SIZE = 30;
+const ICON_SIZE = [30, 50];
 const Navbar = () => {
   const { openMenu, openCart, checkout } = useContext(ShopContext);
   const router = useRouter();

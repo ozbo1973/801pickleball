@@ -26,3 +26,28 @@ export const useRemoveCheckout = (isThirdParty) => {
 
   return { thirdParty, loading, redirectThirdParty };
 };
+
+export const useSelectedVariant = (product) => {
+  const [selectedVariant, setSelectedVariant] = useState();
+  const [size, setSize] = useState("xs");
+  const [loadingProduct, setLoadingProduct] = useState(true);
+
+  const handleOptionChange = () => {
+    const { variants } = product;
+    const selectedProduct = variants.filter((variant) => {
+      const sizes = variant.selectedOptions.filter(
+        (o) => o.name === "Title" && o.value === size
+      );
+      return sizes.length > 0;
+    });
+
+    setSelectedVariant(selectedProduct[0] || product.variants[0]);
+    setLoadingProduct(false);
+  };
+
+  useEffect(() => {
+    product && handleOptionChange();
+  }, [product, handleOptionChange]);
+
+  return { selectedVariant, setSize, loadingProduct };
+};

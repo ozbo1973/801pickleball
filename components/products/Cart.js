@@ -10,14 +10,29 @@ import {
   DrawerOverlay,
   DrawerContent,
   DrawerCloseButton,
+  VStack,
   Link,
   Button,
+  Box,
+  Text,
 } from "@chakra-ui/react";
 
 const Cart = () => {
-  const { isCartOpen, closeCart, checkout, removeLineItem } = useContext(
-    ShopContext
-  );
+  const {
+    isCartOpen,
+    closeCart,
+    checkout,
+    removeLineItem,
+    clearCheckout,
+    createCheckout,
+    thirdPartyCheckout,
+  } = useContext(ShopContext);
+
+  const handleClearCheckout = () => {
+    clearCheckout();
+    closeCart();
+    createCheckout();
+  };
 
   const displayCartItems = () => {
     return checkout.lineItems?.length ? (
@@ -49,18 +64,37 @@ const Cart = () => {
             <DrawerBody>{displayCartItems()}</DrawerBody>
 
             <DrawerFooter>
-              <Link w="100%" href={checkout.webUrl}>
+              <VStack width="100%" spacing={3}>
+                <Box display={thirdPartyCheckout ? "flex" : "none"}>
+                  <Text color="brand.red.800">
+                    Warning: Closing cart will remove access to previous order.
+                  </Text>
+                </Box>
+                <Link w="100%" href={checkout.webUrl}>
+                  <Button
+                    isDisabled={!checkout.lineItems?.length}
+                    w="100%"
+                    color="white"
+                    backgroundColor="darkgreen"
+                    _hover={{ opacity: "70%" }}
+                  >
+                    {thirdPartyCheckout ? "View Previous Order" : "Checkout"}
+                  </Button>
+                </Link>
+
                 <Button
                   isDisabled={!checkout.lineItems?.length}
                   w="100%"
                   color="white"
-                  backgroundColor="darkgreen"
+                  backgroundColor="brand.red.900"
                   _hover={{ opacity: "70%" }}
-                  onClick={handleCheckout}
+                  onClick={handleClearCheckout}
                 >
-                  Checkout
+                  {thirdPartyCheckout
+                    ? "Clear Previous Checkout"
+                    : "Empty Cart"}
                 </Button>
-              </Link>
+              </VStack>
             </DrawerFooter>
           </DrawerContent>
         </DrawerOverlay>

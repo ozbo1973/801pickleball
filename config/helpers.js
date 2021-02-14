@@ -14,9 +14,3 @@ export const currentCollection = (collectionId, collections) => {
 
   return collection;
 };
-
-export const clearCheckout = () => {
-  if (!window !== "undefined") {
-    localStorage.removeItem("checkout_id");
-  }
-};

@@ -10,8 +10,11 @@ const client = Client.buildClient({
 
 const ShopContext = createContext();
 
-const handleLocalStorage = (key, val) => {
+const handleLocalStorage = (key, val, remove) => {
   if (!window !== "undefined") {
+    if (remove) {
+      return localStorage.removeItem(key);
+    }
     if (!val) {
       return localStorage[key];
     } else {
@@ -28,10 +31,13 @@ export class ShopProvider extends Component {
     collections: [],
     isCartOpen: false,
     isMenuOpen: false,
+    thirdPartyCheckout: null,
   };
 
   componentDidMount() {
     const checkoutId = handleLocalStorage("checkout_id");
+    this.setThirdPartyCheckout(handleLocalStorage("thirdPartyCheckout"));
+
     if (checkoutId) {
       this.fetchCheckout(checkoutId);
     } else {
@@ -42,7 +48,14 @@ export class ShopProvider extends Component {
   createCheckout = async () => {
     const checkout = await client.checkout.create();
     handleLocalStorage("checkout_id", checkout.id);
+    this.setThirdPartyCheckout();
     this.setState({ ...this.state, checkout });
+  };
+
+  clearCheckout = () => {
+    const checkout = {};
+    handleLocalStorage("checkout_id", checkout, "remove");
+    this.createCheckout();
   };
 
   fetchCheckout = async (checkoutId) => {
@@ -50,7 +63,7 @@ export class ShopProvider extends Component {
     this.setState({ ...this.state, checkout: checkout || {} });
   };
 
-  addItemToCheckout = async (variantId, quantity) => {
+  addItemToCheckout = async (variantId, quantity, showCart) => {
     const lineItemsToAdd = [
       {
         variantId,
@@ -64,7 +77,7 @@ export class ShopProvider extends Component {
     );
 
     this.setState({ ...this.state, checkout });
-    this.openCart();
+    showCart && this.openCart();
   };
 
   removeLineItem = async (lineItemId) => {
@@ -97,7 +110,8 @@ export class ShopProvider extends Component {
     this.setState({ ...this.state, products: collection.products });
   };
 
-  closeCart = () => {
+  closeCart = async () => {
+    this.state.thirdPartyCheckout && (await this.clearCheckout());
     this.setState({ ...this.state, isCartOpen: false });
   };
   openCart = () => {
@@ -108,6 +122,22 @@ export class ShopProvider extends Component {
   };
   openMenu = () => {
     this.setState({ ...this.state, isMenuOpen: true });
+  };
+
+  setThirdPartyCheckout = (party = null) => {
+    if (!party) {
+      //   remove thirdPartyCheckout
+      handleLocalStorage("thirdPartyCheckout", "", "remove");
+    } else {
+      //   add thirdParty checkout
+      handleLocalStorage("thirdPartyCheckout", party);
+    }
+    //   update state
+    this.setState({
+      ...this.state,
+      thirdPartyCheckout: party,
+      isCartOpen: !!party,
+    });
   };
 
   render() {
@@ -125,6 +155,9 @@ export class ShopProvider extends Component {
           closeCart: this.closeCart,
           openMenu: this.openMenu,
           closeMenu: this.closeMenu,
+          createCheckout: this.createCheckout,
+          clearCheckout: this.clearCheckout,
+          setThirdPartyCheckout: this.setThirdPartyCheckout,
         }}
       >
         {this.props.children}

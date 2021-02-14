@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Link from "next/link";
+import { OPTION_LABELS } from "config";
 import { useSelectedVariant } from "config/hooks";
 import VariantOptions from "components/ui/VariantOptions";
 import AddToCartButton from "components/ui/AddToCartButton";
@@ -10,7 +11,8 @@ import { Box, Badge, Image } from "@chakra-ui/react";
 const ProductCard = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
   const { selectedVariant, setSize, loadingProduct } = useSelectedVariant(
-    product
+    product,
+    OPTION_LABELS
   );
 
   return loadingProduct ? (
@@ -82,6 +84,7 @@ const ProductCard = ({ product }) => {
             label={"Size"}
             product={product}
             handleChange={setSize}
+            labelOverride={OPTION_LABELS.size}
           />
           <NumberInput
             label="Quantity"

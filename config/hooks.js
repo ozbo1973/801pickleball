@@ -27,7 +27,7 @@ export const useRemoveCheckout = (isThirdParty) => {
   return { thirdParty, loading, redirectThirdParty };
 };
 
-export const useSelectedVariant = (product) => {
+export const useSelectedVariant = (product, label) => {
   const [selectedVariant, setSelectedVariant] = useState();
   const [size, setSize] = useState("xs");
   const [loadingProduct, setLoadingProduct] = useState(true);
@@ -36,7 +36,7 @@ export const useSelectedVariant = (product) => {
     const { variants } = product;
     const selectedProduct = variants.filter((variant) => {
       const sizes = variant.selectedOptions.filter(
-        (o) => o.name === "Title" && o.value === size
+        (o) => o.name === label.size && o.value === size
       );
       return sizes.length > 0;
     });

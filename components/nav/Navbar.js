@@ -12,11 +12,14 @@ const Navbar = () => {
 
   return (
     <Flex
+      position={router.pathname === "/" ? "relative" : "sticky"}
+      top={0}
+      zIndex="500"
       backgroundColor="brand.mix.a"
       flexDir="row"
       justifyContent="space-between"
       alignItems="center"
-      p="2rem"
+      p={router.pathname === "/" ? "2rem" : "1rem"}
     >
       <Icon
         fill="white"
@@ -30,8 +33,8 @@ const Navbar = () => {
         <Link href="/">
           <Image
             src="https://cdn.shopify.com/s/files/1/0528/7798/3897/files/logo-801.webp?v=1611838470"
-            w={100}
-            h={100}
+            w={[75, 100]}
+            h={[75, 100]}
             cursor="pointer"
           />
         </Link>

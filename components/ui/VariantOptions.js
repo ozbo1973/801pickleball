@@ -1,9 +1,10 @@
 import { Select, FormControl, FormLabel } from "@chakra-ui/react";
 
-const VariantOptions = ({ label, handleChange, product }) => {
+const VariantOptions = ({ label, handleChange, product, labelOverride }) => {
   const { options } = product;
+  const match = labelOverride || label;
   const getOption =
-    options?.length > 0 && options.filter((o) => o.name === "Title");
+    options?.length > 0 && options.filter((o) => o.name === match);
 
   return (
     <FormControl>

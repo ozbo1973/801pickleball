@@ -11,11 +11,12 @@ const Hero = () => {
       className={styles.heroGradient}
       w="100%"
       position="relative"
-      h="80vh"
+      minH="80vh"
     >
       <Center>
         <VStack spacing={8}>
           <Image
+            boxSize="xl"
             src="https://cdn.shopify.com/s/files/1/0528/7798/3897/files/801-pb-nobg.webp?v=1611838441"
             h="100%"
             m="auto"
@@ -34,9 +35,11 @@ const Hero = () => {
             Pickleball
           </Text>
 
-          <Button action={() => router.push("/products")} size="lg">
-            Shop Now
-          </Button>
+          <Box mb="5rem">
+            <Button action={() => router.push("/products")} size="lg">
+              Shop Now
+            </Button>
+          </Box>
         </VStack>
       </Center>
     </Box>

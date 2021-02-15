@@ -14,4 +14,4 @@ export const UNDER_CONSTRUCTION = process.env.NEXT_PUBLIC_UNDER_CONSTRUCTION;
 
 export const OPTION_LABELS = { size: "Title", quantity: "Quantity" };
 
-// 2021-2-15: view production.
+// 2021-2-15: set under constructions : homepage adjust so doesnt overlap.

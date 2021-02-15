@@ -1,27 +1,26 @@
 import { Select, FormControl, FormLabel } from "@chakra-ui/react";
 
 const VariantOptions = ({
-  label,
   handleChange,
   product,
-  labelOverride,
+  getOption,
   disabled,
+  hidden,
 }) => {
   const { options } = product;
-  const match = labelOverride || label;
-  const getOption =
-    options?.length > 0 && options.filter((o) => o.name === match);
+  const option = options[getOption];
+  const label = option.name;
 
   return (
-    <FormControl>
+    <FormControl hidden={hidden || false}>
       <FormLabel>{label}</FormLabel>
       <Select
         disabled={disabled || false}
         defaultValue="Choose"
-        onChange={(e) => handleChange({ [match]: e.target.value })}
+        onChange={(e) => handleChange({ [label]: e.target.value })}
       >
         <option value="Choose">Choose</option>
-        {getOption[0].values.map((o) => (
+        {option.values.map((o) => (
           <option key={`prod_variant_${o.value}_${label}`} value={o.value}>
             {o.value}
           </option>

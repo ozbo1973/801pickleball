@@ -46,11 +46,10 @@ const SingleProduct = ({ product }) => {
           />
 
           <VariantOptions
-            disabled={product.variants.length < 2}
-            label={"Size"}
             product={product}
             handleChange={handleOptionChange}
-            labelOverride={OPTION_LABELS.size}
+            getOption={0}
+            hidden={product.variants.length < 2}
           />
 
           <NumberInput

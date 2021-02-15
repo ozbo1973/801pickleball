@@ -2,7 +2,7 @@ import { Box, Center, VStack } from "@chakra-ui/react";
 
 const CenterItem = ({ children }) => {
   return (
-    <Box p="3rem" h="50vh" position="relative">
+    <Box p="3rem" h="100%" position="relative">
       <Center>
         <VStack
           spacing={4}

@@ -89,11 +89,10 @@ const ProductCard = ({ product }) => {
       <Box p="1rem" flexShrink={0}>
         <Box mb="2.5rem" d="flex" alignItems="baseline">
           <VariantOptions
-            label={"Size"}
             product={product}
             handleChange={handleOptionChange}
-            labelOverride={OPTION_LABELS.size}
-            disabled={product.variants.length < 2}
+            getOption={0}
+            hidden={product.variants.length < 2}
           />
           <NumberInput
             label="Quantity"

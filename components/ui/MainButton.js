@@ -10,6 +10,8 @@ const MainButton = ({
   bottom,
   size,
   disabled,
+  isLoading,
+  loadingText,
 }) => {
   return (
     <Button
@@ -22,6 +24,8 @@ const MainButton = ({
       _hover={{ opacity: "70%" }}
       onClick={action}
       disabled={disabled || false}
+      isLoading={isLoading || false}
+      loadingText={loadingText}
     >
       {children}
     </Button>

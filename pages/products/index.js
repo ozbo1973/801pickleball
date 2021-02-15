@@ -6,7 +6,7 @@ import BaseLayout from "components/layout/BaseLayout";
 import CollectionMenu from "components/products/CollectionMenu";
 import ProductCard from "components/products/ProductCard";
 import Loading from "components/ui/Loading";
-import { Box, Wrap, WrapItem, VStack, Center, Text } from "@chakra-ui/react";
+import { Wrap, WrapItem, VStack, Center, Text } from "@chakra-ui/react";
 
 const Shop = () => {
   const {
@@ -32,18 +32,17 @@ const Shop = () => {
     }
   }, [collectionId]);
 
-  const displayProducts = () => {
-    return products?.length === 0 ? (
+  const displayProducts = () =>
+    products?.length === 0 ? (
       <Loading />
     ) : (
       products.length > 0 &&
-        products.map((product) => (
-          <WrapItem mb="1rem" key={`wrap_${product.id}`}>
-            <ProductCard product={product} />
-          </WrapItem>
-        ))
+      products.map((product) => (
+        <WrapItem mb="1rem" key={`wrap_${product.id}`}>
+          <ProductCard product={product} />
+        </WrapItem>
+      ))
     );
-  };
 
   return (
     <BaseLayout seo={seo}>

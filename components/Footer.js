@@ -1,5 +1,6 @@
 import Menu from "components/nav/Menu";
-import { Box, Grid, Image, Text, Center } from "@chakra-ui/react";
+import PaymentOptions from "./PaymentOptions";
+import { Box, Grid, Image, Text, Center, VStack, Icon } from "@chakra-ui/react";
 import styles from "styles/Footer.module.css";
 
 const Footer = () => {
@@ -10,16 +11,12 @@ const Footer = () => {
         color="white"
         fontWeight="Bold"
       >
-        <Center>
+        <Center pt={["1rem", 0]}>
           <Image src="https://cdn.shopify.com/s/files/1/0528/7798/3897/files/801-pb-footer.png?v=1611838453" />
         </Center>
-        {/* <VStack p="2rem">
-          <Link href="/">Featured Product 1</Link>
-          <Link href="/">Featured Product 1</Link>
-          <Link href="/">Featured Product 1</Link>
-        </VStack> */}
 
         <Menu />
+        <PaymentOptions />
       </Grid>
       <Box>
         <Text
@@ -29,7 +26,7 @@ const Footer = () => {
           textAlign="center"
           p="1rem"
         >
-          © Copyright 801pickleball.net
+          © 2021-801pickleball.net
         </Text>
       </Box>
     </Box>

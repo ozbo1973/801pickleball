@@ -2,7 +2,14 @@ import { useContext } from "react";
 import { ShopContext } from "contexts/ShopContext";
 import Button from "components/ui/MainButton";
 
-const AddToCartButton = ({ product, quantity = 1, showCart, size, w }) => {
+const AddToCartButton = ({
+  disabled = false,
+  product,
+  quantity = 1,
+  showCart,
+  size,
+  w,
+}) => {
   const { addItemToCheckout } = useContext(ShopContext);
 
   return (
@@ -10,6 +17,7 @@ const AddToCartButton = ({ product, quantity = 1, showCart, size, w }) => {
       action={() => addItemToCheckout(product.id, quantity, showCart)}
       size={size || "lg"}
       w={w || "10rem"}
+      disabled={disabled}
     >
       Add To Cart
     </Button>

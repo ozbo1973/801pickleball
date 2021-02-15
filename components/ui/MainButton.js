@@ -9,6 +9,7 @@ const MainButton = ({
   absolute,
   bottom,
   size,
+  disabled,
 }) => {
   return (
     <Button
@@ -20,6 +21,7 @@ const MainButton = ({
       color={color || "white"}
       _hover={{ opacity: "70%" }}
       onClick={action}
+      disabled={disabled || false}
     >
       {children}
     </Button>

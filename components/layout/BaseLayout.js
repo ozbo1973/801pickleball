@@ -48,13 +48,16 @@ const BaseLayout = ({ seo = {}, children }) => {
       {UNDER_CONSTRUCTION ? (
         <UnderConstruction />
       ) : (
-        <Box h="100%" display="flex" flexDir="column">
-          <Navbar />
-          <NavMenu />
-          <Cart />
-          <Box flexGrow={1}>{children}</Box>
-          <Box flexShrink={0}>
-            <Footer />
+        <Box h="100%">
+          <Box h="100vh" display="flex" flexDir="column">
+            <Navbar />
+
+            <NavMenu />
+            <Cart />
+            <Box flexGrow={1}>{children}</Box>
+            <Box flexShrink={0}>
+              <Footer />
+            </Box>
           </Box>
         </Box>
       )}

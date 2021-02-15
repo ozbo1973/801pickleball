@@ -10,7 +10,9 @@ import SingleProduct from "components/products/SingleProduct";
 import { Box, VStack } from "@chakra-ui/react";
 
 const ProductPage = () => {
-  const { fetchProductByHandle, product } = useContext(ShopContext);
+  const { fetchProductByHandle, product, getVariants } = useContext(
+    ShopContext
+  );
   const router = useRouter();
   const { productHandle } = router.query;
 

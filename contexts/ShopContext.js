@@ -1,5 +1,6 @@
 import { Component, createContext } from "react";
-import Client from "shopify-buy";
+// import Client from "shopify-buy";
+import Client from "shopify-buy/index.unoptimized.umd";
 import { SHOPIFY_API, SHOPIFY_DOMAIN } from "config";
 
 // Initializing a client to return content in the store's primary language
@@ -44,6 +45,46 @@ export class ShopProvider extends Component {
       this.createCheckout();
     }
   }
+
+  getVariants = (handle) => {
+    const qtyQuery = client.graphQLClient.query((root) => {
+      root.add(
+        "productByHandle",
+        { args: { handle: `${handle}` } },
+        (product) => {
+          product.add("title");
+          product.add("handle");
+          product.add("id");
+          product.addConnection(
+            "variants",
+            { args: { first: 99 } },
+            (variant) => {
+              variant.add("id");
+              variant.add("title");
+              variant.add("availableForSale");
+              variant.add("quantityAvailable");
+              variant.add("currentlyNotInStock");
+              variant.add("price");
+              variant.add("selectedOptions", (opts) => {
+                opts.add("name");
+                opts.add("value");
+              });
+            }
+          );
+        }
+      );
+    });
+
+    return client.graphQLClient
+      .send(qtyQuery)
+      .then((res) => {
+        return JSON.parse(JSON.stringify(res.model.productByHandle));
+      })
+      .catch(() => null);
+  };
+
+  getSelectedVariant = async (product, options) =>
+    await client.product.helpers.variantForOptions(product, options);
 
   createCheckout = async () => {
     const checkout = await client.checkout.create();
@@ -158,6 +199,8 @@ export class ShopProvider extends Component {
           createCheckout: this.createCheckout,
           clearCheckout: this.clearCheckout,
           setThirdPartyCheckout: this.setThirdPartyCheckout,
+          getVariants: this.getVariants,
+          getSelectedVariant: this.getSelectedVariant,
         }}
       >
         {this.props.children}

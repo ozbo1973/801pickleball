@@ -1,18 +1,22 @@
 import { useState } from "react";
 import { useSelectedVariant } from "config/hooks";
+import { OPTION_LABELS } from "config";
 import Loading from "components/ui/Loading";
 import VariantOptions from "components/ui/VariantOptions";
 import NumberInput from "components/ui/NumberInput";
 import NoInputControl from "components/ui/FormControlNoInput";
+import InventoryBadge from "components/ui/InventoryBadge";
 import AddToCart from "components/ui/AddToCartButton";
-import { Grid, Heading, Image, Flex, Stack } from "@chakra-ui/react";
+import { Grid, Heading, Image, Flex, Stack, Badge } from "@chakra-ui/react";
 
 const SingleProduct = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
-  const { selectedVariant, setSize, loadingProduct } = useSelectedVariant(
-    product
-  );
-
+  const {
+    selectedVariant,
+    handleOptionChange,
+    loadingProduct,
+  } = useSelectedVariant(product);
+  console.log(selectedVariant);
   return loadingProduct ? (
     <Loading />
   ) : (
@@ -29,15 +33,21 @@ const SingleProduct = ({ product }) => {
       >
         <Heading mt="1rem" fontSize={["1rem", "2rem"]} pb={["1rem", "2rem"]}>
           {product.title}
+          <InventoryBadge selectedVariant={selectedVariant} />
         </Heading>
 
         <Stack direction="row" spacing={5}>
-          <NoInputControl label="Price" info={`$${selectedVariant.price}`} />
+          <NoInputControl
+            label="Price"
+            info={`$${selectedVariant?.price || product.variants[0].price}`}
+          />
 
           <VariantOptions
+            disabled={product.variants.length < 2}
             label={"Size"}
             product={product}
-            handleChange={setSize}
+            handleChange={handleOptionChange}
+            labelOverride={OPTION_LABELS.size}
           />
 
           <NumberInput
@@ -48,7 +58,12 @@ const SingleProduct = ({ product }) => {
         </Stack>
         <NoInputControl color="brand.dark.300" info={product.description} />
 
-        <AddToCart product={selectedVariant} quantity={quantity} showCart />
+        <AddToCart
+          disabled={!selectedVariant && !selectedVariant?.availableToSell}
+          product={selectedVariant}
+          quantity={quantity}
+          showCart
+        />
       </Flex>
     </Grid>
   );

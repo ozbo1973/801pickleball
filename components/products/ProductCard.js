@@ -5,15 +5,18 @@ import { useSelectedVariant } from "config/hooks";
 import VariantOptions from "components/ui/VariantOptions";
 import AddToCartButton from "components/ui/AddToCartButton";
 import Loading from "components/ui/Loading";
+import InventoryBadge from "components/ui/InventoryBadge";
 import NumberInput from "components/ui/NumberInput";
-import { Box, Badge, Image } from "@chakra-ui/react";
+import { Box, Badge, Image, Flex } from "@chakra-ui/react";
 
 const ProductCard = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
-  const { selectedVariant, setSize, loadingProduct } = useSelectedVariant(
-    product,
-    OPTION_LABELS
-  );
+
+  const {
+    selectedVariant,
+    handleOptionChange,
+    loadingProduct,
+  } = useSelectedVariant(product);
 
   return loadingProduct ? (
     <Loading />
@@ -64,12 +67,15 @@ const ProductCard = ({ product }) => {
             borderRadius="full"
             px="2"
             variant="outline"
-            border="2px brand.mix.b solid"
-            color="brand.mix.a"
+            colorScheme="brand.dark"
           >
-            $ {selectedVariant?.price || 0}
+            $ {selectedVariant?.price || product.variants[0].price}
           </Badge>
         </Box>
+
+        <Flex w="100%" justifyContent="center">
+          <InventoryBadge selectedVariant={selectedVariant} p={1} />
+        </Flex>
 
         <Box d="flex" mt="2" alignItems="center">
           <Box mt="2" color="gray.600" fontSize="sm">
@@ -83,8 +89,9 @@ const ProductCard = ({ product }) => {
           <VariantOptions
             label={"Size"}
             product={product}
-            handleChange={setSize}
+            handleChange={handleOptionChange}
             labelOverride={OPTION_LABELS.size}
+            disabled={product.variants.length < 2}
           />
           <NumberInput
             label="Quantity"
@@ -94,6 +101,7 @@ const ProductCard = ({ product }) => {
         </Box>
 
         <AddToCartButton
+          disabled={!selectedVariant}
           product={selectedVariant}
           quantity={quantity}
           size="sm"

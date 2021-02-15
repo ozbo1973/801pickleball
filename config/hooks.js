@@ -27,27 +27,48 @@ export const useRemoveCheckout = (isThirdParty) => {
   return { thirdParty, loading, redirectThirdParty };
 };
 
-export const useSelectedVariant = (product, label) => {
+export const useSelectedVariant = (product) => {
+  const { getVariants, getSelectedVariant } = useContext(ShopContext);
   const [selectedVariant, setSelectedVariant] = useState();
-  const [size, setSize] = useState("xs");
+  const [optionsSelected, setOptionsSelected] = useState({});
   const [loadingProduct, setLoadingProduct] = useState(true);
 
-  const handleOptionChange = () => {
-    const { variants } = product;
-    const selectedProduct = variants.filter((variant) => {
-      const sizes = variant.selectedOptions.filter(
-        (o) => o.name === label.size && o.value === size
-      );
-      return sizes.length > 0;
-    });
+  const handleOptionChange = async (option) => {
+    const { variants } = await getVariants(product.handle);
+    const fullOptions = { ...optionsSelected, ...option };
 
-    setSelectedVariant(selectedProduct[0] || product.variants[0]);
-    setLoadingProduct(false);
+    // get selected variants
+    const selectedProduct = await getSelectedVariant(product, fullOptions);
+    // determine if in stock
+    if (selectedProduct) {
+      const inventoryCheck = variants.filter(
+        (variant) => variant.id === selectedProduct.id
+      )[0];
+
+      selectedProduct.availableToSell = inventoryCheck.availableForSale;
+      selectedProduct.outOfStock = inventoryCheck.currentlyNotInStock;
+      selectedProduct.limitedInventory =
+        inventoryCheck.quantityAvailable < 6 &&
+        inventoryCheck.quantityAvailable > 0
+          ? inventoryCheck.quantityAvailable
+          : null;
+
+      setSelectedVariant(selectedProduct);
+      setOptionsSelected(fullOptions);
+    } else {
+      setSelectedVariant(null);
+    }
   };
 
   useEffect(() => {
-    product && handleOptionChange();
-  }, [product, handleOptionChange]);
+    const productKeys = Object.keys(product).length;
+    productKeys > 0 && setLoadingProduct(false);
 
-  return { selectedVariant, setSize, loadingProduct };
+    if (productKeys > 0 && product.variants.length === 1) {
+      const { name, value } = product.variants[0].selectedOptions[0];
+      handleOptionChange({ [name]: value });
+    }
+  }, [product]);
+
+  return { selectedVariant, handleOptionChange, loadingProduct };
 };

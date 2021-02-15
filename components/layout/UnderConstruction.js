@@ -9,7 +9,7 @@ const UnderConstruction = () => {
       className={styles.heroGradient}
       w="100%"
       position="relative"
-      h="95vh"
+      h="100vh"
     >
       <Center>
         <VStack spacing={8}>
@@ -38,7 +38,7 @@ const UnderConstruction = () => {
             color="#fff"
             textShadow="1px 1px 2px #D52320;"
             fontWeight="bold"
-            fontSize={["1.5rem", "3rem"]}
+            fontSize={["1.3rem", "2.3rem"]}
           >
             {UNDER_CONSTRUCTION}
           </Text>

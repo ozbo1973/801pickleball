@@ -19,7 +19,9 @@ const ProductCard = ({ product }) => {
   } = useSelectedVariant(product);
 
   return loadingProduct ? (
-    <Loading />
+    <Box maxW="md" margin="auto" display="flex" flexDirection="column">
+      <Loading />
+    </Box>
   ) : (
     <Box
       h="100%"

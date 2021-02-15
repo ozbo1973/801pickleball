@@ -8,6 +8,7 @@ import NoInputControl from "components/ui/FormControlNoInput";
 import InventoryBadge from "components/ui/InventoryBadge";
 import AddToCart from "components/ui/AddToCartButton";
 import { Grid, Heading, Image, Flex, Stack, Badge } from "@chakra-ui/react";
+import CenterItem from "components/layout/CenterItem";
 
 const SingleProduct = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
@@ -16,9 +17,11 @@ const SingleProduct = ({ product }) => {
     handleOptionChange,
     loadingProduct,
   } = useSelectedVariant(product);
-  console.log(selectedVariant);
+
   return loadingProduct ? (
-    <Loading />
+    <CenterItem>
+      <Loading />
+    </CenterItem>
   ) : (
     <Grid templateColumns={["repeat(1,1fr)", "repeat(2,1fr)"]} m="auto">
       <Flex justifyContent="center" alignItems="center">

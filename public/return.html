@@ -8,35 +8,44 @@
     <style>
       .wrapper {
         display: flex;
-        flex-direction: row;
-        justify-content: space-evenly;
-        width: 100%;
+        flex-direction: column;
       }
       .pic {
-        box-sizing: border-box;
-        width: 80px;
-        height: 80px;
+        width: auto;
+        height: auto;
+        overflow: hidden;
       }
-      .img {
-        object-fit: contain;
+
+      .img{
+          object-fit: contain;
       }
+
+      a,a:visited,a:hover, .instruction{
+          text-decoration: none;
+          font-size: 1rem;
+          font-weight: bold;
+          color: "#700f10";
+      }
+
     </style>
   </head>
   <body>
-    <div class="wrapper">
-      <div class="pic">
-        <img
-          src="https://cdn.shopify.com/s/files/1/0528/7798/3897/files/logo-801.webp?v=1611838470"
-          alt="801 Pickleball Logo"
-        />
-      </div>
       <div class="action">
         <a
-          target="_blank"
           href="http://localhost:3000/orders/completed?thirdParty=shopify"
-          >Shop 801 Pickleball</a
-        >
-      </div>
-    </div>
+          >
+          <div class="wrapper">
+              <div class="pic">
+                <img
+                src="https://cdn.shopify.com/s/files/1/0528/7798/3897/files/logo-801.webp?v=1611838470"
+                alt="801 Pickleball Logo"
+              />
+              </div>
+              <div class="instruction">
+                  Return to 801 Pickleball
+              </div>
+          </div>
+          
+        </a>
   </body>
 </html>

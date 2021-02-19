@@ -23,7 +23,15 @@ const CollectionMenu = () => {
   const displayMobileMenu = () => {
     return (
       <Box display={["flex", "none"]}>
-        <Select onChange={handleOnSelect} placeholder="Shop 801">
+        <Select
+          // focusBorderColor="inherit"
+          // border="none"
+          style={{ textAlignLast: "center" }}
+          variant="unstyled"
+          p={4}
+          fontSize="1.5rem"
+          onChange={handleOnSelect}
+        >
           <option value="all">View all products</option>
           {collections.length > 0 &&
             collections.map((c) => (

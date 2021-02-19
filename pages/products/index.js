@@ -47,7 +47,7 @@ const Shop = () => {
   return (
     <BaseLayout seo={seo}>
       <VStack p="2rem">
-        <Center mb="1rem">
+        <Center display={["none", "block"]} mb="1rem">
           <Text fontSize="3xl">{title}</Text>
         </Center>
 

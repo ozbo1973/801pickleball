@@ -1,6 +1,5 @@
 import { useState } from "react";
 import Link from "next/link";
-import { OPTION_LABELS } from "config";
 import { useSelectedVariant } from "config/hooks";
 import VariantOptions from "components/ui/VariantOptions";
 import AddToCartButton from "components/ui/AddToCartButton";
@@ -29,7 +28,7 @@ const ProductCard = ({ product }) => {
       borderWidth="1px"
       borderRadius="lg"
       overflow="hidden"
-      margin="auto"
+      // margin="0 auto"
       display="flex"
       flexDirection="column"
     >
@@ -45,13 +44,13 @@ const ProductCard = ({ product }) => {
           alt={product.title}
           overflow="hidden"
           flexShrink={0}
-          boxSize="xs"
-          m="0 auto"
+          boxSize="250px"
           cursor="pointer"
+          m="0 auto"
         />
       </Link>
 
-      <Box p="3" flexGrow={1}>
+      <Box p={[3, 1]} flexGrow={1}>
         <Box d="flex" alignItems="baseline" justifyContent="space-between">
           <Box
             color="gray.500"
@@ -59,15 +58,15 @@ const ProductCard = ({ product }) => {
             letterSpacing="wide"
             as="h4"
             textTransform="uppercase"
-            mr="2"
+            mr={2}
           >
             {product.title}
           </Box>
 
           <Badge
-            p={1}
+            py={1}
             borderRadius="full"
-            px="2"
+            px={2}
             variant="outline"
             colorScheme="brand.dark"
           >
@@ -75,12 +74,12 @@ const ProductCard = ({ product }) => {
           </Badge>
         </Box>
 
-        <Flex w="100%" justifyContent="center">
+        <Flex mt={2} w="100%" justifyContent="center">
           <InventoryBadge selectedVariant={selectedVariant} p={1} />
         </Flex>
 
-        <Box d="flex" mt="2" alignItems="center">
-          <Box mt="2" color="gray.600" fontSize="sm">
+        <Box d="flex" mt={2} alignItems="center">
+          <Box p={2} color="gray.600" fontSize="sm">
             {product.description}
           </Box>
         </Box>

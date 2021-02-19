@@ -32,6 +32,7 @@ export const useSelectedVariant = (product) => {
   const [selectedVariant, setSelectedVariant] = useState();
   const [optionsSelected, setOptionsSelected] = useState({});
   const [loadingProduct, setLoadingProduct] = useState(true);
+  let mounted;
 
   const handleOptionChange = async (option) => {
     const { variants } = await getVariants(product.handle);
@@ -61,6 +62,7 @@ export const useSelectedVariant = (product) => {
   };
 
   useEffect(() => {
+    mounted = true;
     const productKeys = Object.keys(product).length;
     productKeys > 0 && setLoadingProduct(false);
 
@@ -68,6 +70,7 @@ export const useSelectedVariant = (product) => {
       const { name, value } = product.variants[0].selectedOptions[0];
       handleOptionChange({ [name]: value });
     }
+    return () => (mounted = false);
   }, [product]);
 
   return { selectedVariant, handleOptionChange, loadingProduct };

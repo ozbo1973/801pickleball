@@ -19,7 +19,7 @@ const TextWithImage = ({
     <Box p="1rem" borderBottom="2px solid" borderColor="brand.red.500">
       <Flex flexDir={["column", reverseSection]} w="100%">
         <Image
-          boxSize="300px"
+          boxSize="sm"
           src={image}
           objectFit="contain"
           w={["100%", "50%"]}

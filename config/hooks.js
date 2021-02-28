@@ -75,3 +75,25 @@ export const useSelectedVariant = (product) => {
 
   return { selectedVariant, handleOptionChange, loadingProduct };
 };
+
+export const useScroll = () => {
+  const [scroll, setScroll] = useState(false);
+
+  const listener = () => {
+    const offset = window.scrollY;
+    console.log("offset", offset);
+    offset > 250 ? setScroll(true) : setScroll(false);
+  };
+
+  useEffect(() => {
+    if (window !== "undefined") {
+      window.addEventListener("scroll", listener);
+    }
+    return () => {
+      if (window !== "undefined") {
+        window.removeEventListener("scroll", listener);
+      }
+    };
+  });
+  return [scroll];
+};

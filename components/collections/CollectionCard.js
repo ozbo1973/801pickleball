@@ -1,11 +1,13 @@
 import Link from "next/link";
+import { UNDER_CONSTRUCTION } from "config";
 import { Text, Box, Image, Center } from "@chakra-ui/react";
 
 const CollectionCard = ({ collection }) => {
+  const pathname = UNDER_CONSTRUCTION ? "/" : "/products/";
   return (
     <Link
       href={{
-        pathname: `/products/`,
+        pathname,
         query: { collectionId: collection.id },
       }}
     >

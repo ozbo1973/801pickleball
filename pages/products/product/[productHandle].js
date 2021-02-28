@@ -1,11 +1,9 @@
 import { useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import { ShopContext } from "contexts/ShopContext";
-
 import BaseLayout from "components/layout/BaseLayout";
-import CollectionMenu from "components/products/CollectionMenu";
+import CollectionMenu from "components/collections/CollectionMenu";
 import SingleProduct from "components/products/SingleProduct";
-
 import { Box, VStack } from "@chakra-ui/react";
 
 const ProductPage = () => {

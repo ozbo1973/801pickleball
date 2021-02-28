@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { currentCollection } from "config/helpers";
 import { ShopContext } from "contexts/ShopContext";
 import BaseLayout from "components/layout/BaseLayout";
-import CollectionMenu from "components/products/CollectionMenu";
+import CollectionMenu from "components/collections/CollectionMenu";
 import ProductCard from "components/products/ProductCard";
 import Loading from "components/ui/Loading";
 import { Wrap, WrapItem, VStack, Center, Text } from "@chakra-ui/react";
@@ -15,6 +15,7 @@ const Shop = () => {
     products,
     collections,
   } = useContext(ShopContext);
+
   const router = useRouter();
   const { collectionId = null } = router.query;
   const { title, description } = currentCollection(collectionId, collections);
@@ -22,6 +23,7 @@ const Shop = () => {
   const seo = {
     title: `Shop 801 Pickleball - ${title}`,
     description,
+    keywords: `,801pickleball products,801pickleball ${title}`,
   };
 
   useEffect(() => {

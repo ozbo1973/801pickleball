@@ -1,11 +1,12 @@
 export const currentCollection = (collectionId, collections) => {
   let collection = {};
+  let newCollection = [];
 
   if (!collectionId) {
     collection.title = "All Products";
     collection.description = "Shop all products related to 801 Pickleball.";
   } else {
-    const newCollection =
+    newCollection =
       collections.length > 0 &&
       collections.filter((c) => c.id === collectionId)[0];
 

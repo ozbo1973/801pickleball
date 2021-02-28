@@ -1,6 +1,6 @@
 import Menu from "components/nav/Menu";
-import PaymentOptions from "./PaymentOptions";
-import { Box, Grid, Image, Text, Center, VStack, Icon } from "@chakra-ui/react";
+import PaymentOptions from "components/footer/PaymentOptions";
+import { Box, Grid, Image, Text, Center } from "@chakra-ui/react";
 import styles from "styles/Footer.module.css";
 
 const Footer = () => {

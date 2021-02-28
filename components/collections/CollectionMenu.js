@@ -9,7 +9,7 @@ const CollectionMenu = () => {
   const router = useRouter();
 
   useEffect(() => {
-    fecthAllCollectionNoProducts();
+    collections.length === 0 && fecthAllCollectionNoProducts();
   }, [fecthAllCollectionNoProducts]);
 
   const handleOnSelect = (e) => {
@@ -24,8 +24,6 @@ const CollectionMenu = () => {
     return (
       <Box display={["flex", "none"]}>
         <Select
-          // focusBorderColor="inherit"
-          // border="none"
           style={{ textAlignLast: "center" }}
           variant="unstyled"
           p={4}

@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { ShopContext } from "contexts/ShopContext";
-import EmptyCart from "components/products/EmptyCart";
-import CartItem from "components/products/CartItem";
+import EmptyCart from "components/cart/EmptyCart";
+import CartItem from "components/cart/CartItem";
 import {
   Drawer,
   DrawerBody,

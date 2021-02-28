@@ -5,8 +5,13 @@ import { Flex, Image, Icon, Box, Badge } from "@chakra-ui/react";
 import { ShopContext } from "contexts/ShopContext";
 import { MdMenu, MdShoppingCart } from "react-icons/md";
 
-const ICON_SIZE = [30, 50];
+const iconSizes = {
+  icon: [25, 35],
+  logo: [60, 65],
+};
 const Navbar = () => {
+  const { icon, logo } = iconSizes;
+
   const { openMenu, openCart, checkout } = useContext(ShopContext);
   const router = useRouter();
 
@@ -14,7 +19,8 @@ const Navbar = () => {
     <Flex
       position={router.pathname === "/" ? "relative" : "sticky"}
       top={0}
-      zIndex="500"
+      left={0}
+      zIndex={500}
       backgroundColor="brand.mix.a"
       flexDir="row"
       justifyContent="space-between"
@@ -25,17 +31,19 @@ const Navbar = () => {
         fill="white"
         cursor="pointer"
         as={MdMenu}
-        w={ICON_SIZE}
-        h={ICON_SIZE}
+        w={icon}
+        h={icon}
         onClick={openMenu}
       />
       {router.pathname !== "/" && (
         <Link href="/">
           <Image
             src="https://cdn.shopify.com/s/files/1/0528/7798/3897/files/logo-801.webp?v=1611838470"
-            w={[75, 100]}
-            h={[75, 100]}
+            w={logo}
+            h={logo}
             cursor="pointer"
+            fallbackSrc="https://cdn.shopify.com/s/files/1/0528/7798/3897/files/logo-801.png?v=1614474944"
+            alt="801 pickleball main logo"
           />
         </Link>
       )}
@@ -45,8 +53,8 @@ const Navbar = () => {
           fill="white"
           cursor="pointer"
           as={MdShoppingCart}
-          w={ICON_SIZE}
-          h={ICON_SIZE}
+          w={icon}
+          h={icon}
           onClick={openCart}
         />
         <Badge backgroundColor="#f1f904" borderRadius="50%">

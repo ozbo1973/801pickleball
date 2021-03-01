@@ -1,38 +1,17 @@
-import { useContext, useEffect } from "react";
-import { useRouter } from "next/router";
-import { currentCollection } from "config/helpers";
-import { ShopContext } from "contexts/ShopContext";
+import {
+  fetchAllProducts,
+  getCollections,
+  getCollectionById,
+} from "config/api";
+import { useUpdateState } from "config/hooks";
 import BaseLayout from "components/layout/BaseLayout";
 import CollectionMenu from "components/collections/CollectionMenu";
 import ProductCard from "components/products/ProductCard";
 import Loading from "components/ui/Loading";
 import { Wrap, WrapItem, VStack, Center, Text } from "@chakra-ui/react";
 
-const Shop = () => {
-  const {
-    fetchAllProducts,
-    fetchCollectionById,
-    products,
-    collections,
-  } = useContext(ShopContext);
-
-  const router = useRouter();
-  const { collectionId = null } = router.query;
-  const { title, description } = currentCollection(collectionId, collections);
-
-  const seo = {
-    title: `Shop 801 Pickleball - ${title}`,
-    description,
-    keywords: `,801pickleball products,801pickleball ${title}`,
-  };
-
-  useEffect(() => {
-    if (!collectionId) {
-      fetchAllProducts();
-    } else {
-      fetchCollectionById(collectionId, 1);
-    }
-  }, [collectionId]);
+const Shop = ({ products, collections, seo, title }) => {
+  useUpdateState(products, collections);
 
   const displayProducts = () =>
     products?.length === 0 ? (
@@ -53,7 +32,7 @@ const Shop = () => {
           <Text fontSize="3xl">{title}</Text>
         </Center>
 
-        <CollectionMenu />
+        <CollectionMenu collections={collections} />
       </VStack>
 
       <Wrap spacing={2} justify="center">
@@ -62,5 +41,56 @@ const Shop = () => {
     </BaseLayout>
   );
 };
+
+export async function getServerSideProps(context) {
+  const { collectionId = null } = context.query;
+  let products = [];
+  let collection = null;
+  let errMsg = [];
+
+  const defaultSEO = {
+    title: "All Products",
+    description: "Shop all products related to 801 Pickleball.",
+  };
+
+  /* get collections for menu and products */
+  const { collections, collectionErr = null } = await getCollections();
+  if (collectionErr) errMsg.push("Issue with Collections");
+
+  /* check if collection id to determin which products to display */
+  if (collectionId) {
+    const colResult = await getCollectionById(collectionId, 1);
+    if (colResult.collectionIdErr) errMsg.push("Issue with Collection by ID");
+
+    if (errMsg.length === 0) {
+      collection = colResult.collection;
+      products = colResult.collection.products;
+    }
+  } else {
+    const res = await fetchAllProducts();
+    if (res.productErr) errMsg.push("Issue with Getting Products");
+
+    if (errMsg.length === 0) {
+      products = res.products;
+    }
+  }
+
+  /* If any errors found go to page not found. */
+  if (errMsg.length > 0) {
+    return { notFound: true };
+  }
+
+  const { title, description } = collection || defaultSEO;
+
+  const seo = {
+    title: `Shop 801 Pickleball - ${title}`,
+    description,
+    keywords: `,801pickleball products,801pickleball ${title}`,
+  };
+
+  return {
+    props: { products, collections, seo, title }, // will be passed to the page component as props
+  };
+}
 
 export default Shop;

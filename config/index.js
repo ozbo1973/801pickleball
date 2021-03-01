@@ -14,7 +14,10 @@ export const UNDER_CONSTRUCTION = process.env.NEXT_PUBLIC_UNDER_CONSTRUCTION;
 
 export const OPTION_LABELS = { size: "Title", quantity: "Quantity" };
 
-/* 2021-2-15: version 1.2 
+/* 2021-2-28 version 2.0 make static pages for better SEO.
+
+
+2021-2-15: version 1.2 
     set under constructions : homepage adjust so doesnt overlap. 
     Testing Home page.
     still needs fixed.

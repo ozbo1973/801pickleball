@@ -81,7 +81,6 @@ export const useScroll = () => {
 
   const listener = () => {
     const offset = window.scrollY;
-    console.log("offset", offset);
     offset > 250 ? setScroll(true) : setScroll(false);
   };
 
@@ -96,4 +95,18 @@ export const useScroll = () => {
     };
   });
   return [scroll];
+};
+
+export const useUpdateState = (products, collections) => {
+  const { updateStateCollections, updateStateProducts } = useContext(
+    ShopContext
+  );
+  const [stateLoading, setLoading] = useState(true);
+
+  useEffect(() => {
+    products && updateStateProducts(products);
+    collections && updateStateCollections(collections);
+    setLoading(false);
+  }, []);
+  return { stateLoading };
 };

@@ -1,20 +1,20 @@
-export const currentCollection = (collectionId, collections) => {
-  let collection = {};
-  let newCollection = [];
+// export const currentCollection = (collectionId, collections) => {
+//   let collection = {};
+//   let newCollection = [];
 
-  if (!collectionId) {
-    collection.title = "All Products";
-    collection.description = "Shop all products related to 801 Pickleball.";
-  } else {
-    newCollection =
-      collections.length > 0 &&
-      collections.filter((c) => c.id === collectionId)[0];
+//   if (!collectionId) {
+//     collection.title = "All Products";
+//     collection.description = "Shop all products related to 801 Pickleball.";
+//   } else {
+//     newCollection =
+//       collections.length > 0 &&
+//       collections.filter((c) => c.id === collectionId)[0];
 
-    collection = { ...newCollection };
-  }
+//     collection = { ...newCollection };
+//   }
 
-  return collection;
-};
+//   return collection;
+// };
 
 const imageBaseURL = "https://cdn.shopify.com/shopifycloud/web/assets/v1/";
 export const creditCardImages = {

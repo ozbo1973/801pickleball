@@ -129,8 +129,8 @@ export class ShopProvider extends Component {
     this.setState({ ...this.state, checkout });
   };
 
-  fetchAllProducts = async () => {
-    const products = await client.product.fetchAll();
+  updateStateProducts = async (products) => {
+    // const products = await client.product.fetchAll();
     this.setState({ ...this.state, products });
   };
 
@@ -139,17 +139,17 @@ export class ShopProvider extends Component {
     this.setState({ ...this.state, product });
   };
 
-  fecthAllCollectionNoProducts = async () => {
-    const collections = await client.collection.fetchAll();
+  updateStateCollections = async (collections) => {
+    // const collections = await client.collection.fetchAll();
     this.setState({ ...this.state, collections });
   };
 
-  fetchCollectionById = async (id, show) => {
-    const collection = await client.collection.fetchWithProducts(id, {
-      firstProducts: show,
-    });
-    this.setState({ ...this.state, products: collection.products });
-  };
+  // fetchCollectionById = async (id, show) => {
+  //   const collection = await client.collection.fetchWithProducts(id, {
+  //     firstProducts: show,
+  //   });
+  //   this.setState({ ...this.state, products: collection.products });
+  // };
 
   closeCart = async () => {
     this.state.thirdPartyCheckout && (await this.clearCheckout());
@@ -186,10 +186,10 @@ export class ShopProvider extends Component {
       <ShopContext.Provider
         value={{
           ...this.state,
-          fetchAllProducts: this.fetchAllProducts,
+          updateStateProducts: this.updateStateProducts,
           fetchProductByHandle: this.fetchProductByHandle,
-          fecthAllCollectionNoProducts: this.fecthAllCollectionNoProducts,
-          fetchCollectionById: this.fetchCollectionById,
+          updateStateCollections: this.updateStateCollections,
+          // fetchCollectionById: this.fetchCollectionById,
           addItemToCheckout: this.addItemToCheckout,
           removeLineItem: this.removeLineItem,
           openCart: this.openCart,

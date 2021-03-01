@@ -1,19 +1,13 @@
-import { useContext, useEffect } from "react";
-import { ShopContext } from "contexts/ShopContext";
+import { getCollections } from "config/api";
+import { useUpdateState } from "config/hooks";
 import BaseLayout from "components/layout/BaseLayout";
 import Hero from "components/home/Hero";
 import CollectionBlock from "components/collections/CollectionBlock";
 import SupportBlock from "components/support";
 import { Box } from "@chakra-ui/react";
 
-const Home = () => {
-  const { fecthAllCollectionNoProducts, fetchCollectionById } = useContext(
-    ShopContext
-  );
-
-  useEffect(() => {
-    fecthAllCollectionNoProducts();
-  }, [fetchCollectionById]);
+const Home = ({ collections }) => {
+  useUpdateState(null, collections);
 
   return (
     <BaseLayout>
@@ -25,5 +19,14 @@ const Home = () => {
     </BaseLayout>
   );
 };
+
+export async function getStaticProps(context) {
+  const { collections, collectionErr = null } = await getCollections();
+  if (collectionErr) return { notFound: true };
+
+  return {
+    props: { collections }, // will be passed to the page component as props
+  };
+}
 
 export default Home;

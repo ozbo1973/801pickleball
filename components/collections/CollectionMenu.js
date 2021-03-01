@@ -1,16 +1,9 @@
-import { useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { ShopContext } from "contexts/ShopContext";
 import { Box, Stack, Heading, Select } from "@chakra-ui/react";
 
-const CollectionMenu = () => {
-  const { fecthAllCollectionNoProducts, collections } = useContext(ShopContext);
+const CollectionMenu = ({ collections }) => {
   const router = useRouter();
-
-  useEffect(() => {
-    collections.length === 0 && fecthAllCollectionNoProducts();
-  }, [fecthAllCollectionNoProducts]);
 
   const handleOnSelect = (e) => {
     const val = e.target.value === "all" ? null : e.target.value;

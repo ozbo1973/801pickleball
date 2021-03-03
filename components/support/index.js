@@ -22,7 +22,7 @@ const SupportBlock = () => {
 
       <TextWithImage
         heading="The Shed"
-        image="https://static.wixstatic.com/media/b12b21_a8d7286bd62143b0b985da7c304ba16c~mv2_d_2398_1201_s_2.png/v1/fill/w_1554,h_439,fp_0.50_0.50,q_90,usm_0.66_1.00_0.01/b12b21_a8d7286bd62143b0b985da7c304ba16c~mv2_d_2398_1201_s_2.webp"
+        image="https://static.wixstatic.com/media/b12b21_a8d7286bd62143b0b985da7c304ba16c~mv2_d_2398_1201_s_2.png/v1/fill/w_1554,h_439,fp_0.50_0.50,q_90,usm_0.66_1.00_0.01/b12b21_a8d7286bd62143b0b985da7c304ba16c~mv2_d_2398_1201_s_2.png"
         text={shedText()}
         btnText="Schedule"
         btnAction={() => {

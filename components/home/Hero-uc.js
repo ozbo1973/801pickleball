@@ -19,6 +19,7 @@ const HeroUC = () => {
             h="100%"
             m="auto"
             objectFit="contain"
+            fallbackSrc="https://cdn.shopify.com/s/files/1/0528/7798/3897/files/801-pb-nobg.png?v=1614474964"
           />
 
           <Text

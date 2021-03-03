@@ -134,6 +134,10 @@ export class ShopProvider extends Component {
     this.setState({ ...this.state, products });
   };
 
+  updateStateProduct = async (product) => {
+    this.setState({ ...this.state, product });
+  };
+
   fetchProductByHandle = async (handle) => {
     const product = await client.product.fetchByHandle(handle);
     this.setState({ ...this.state, product });
@@ -187,6 +191,7 @@ export class ShopProvider extends Component {
         value={{
           ...this.state,
           updateStateProducts: this.updateStateProducts,
+          updateStateProduct: this.updateStateProduct,
           fetchProductByHandle: this.fetchProductByHandle,
           updateStateCollections: this.updateStateCollections,
           // fetchCollectionById: this.fetchCollectionById,

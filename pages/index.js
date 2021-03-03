@@ -7,7 +7,7 @@ import SupportBlock from "components/support";
 import { Box } from "@chakra-ui/react";
 
 const Home = ({ collections }) => {
-  useUpdateState(null, collections);
+  useUpdateState({ collections });
 
   return (
     <BaseLayout>

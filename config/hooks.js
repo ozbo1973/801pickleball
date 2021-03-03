@@ -97,15 +97,18 @@ export const useScroll = () => {
   return [scroll];
 };
 
-export const useUpdateState = (products, collections) => {
-  const { updateStateCollections, updateStateProducts } = useContext(
-    ShopContext
-  );
+export const useUpdateState = ({ products, collections, product }) => {
+  const {
+    updateStateCollections,
+    updateStateProducts,
+    updateStateProduct,
+  } = useContext(ShopContext);
   const [stateLoading, setLoading] = useState(true);
 
   useEffect(() => {
     products && updateStateProducts(products);
     collections && updateStateCollections(collections);
+    product && updateStateProduct(product);
     setLoading(false);
   }, []);
   return { stateLoading };

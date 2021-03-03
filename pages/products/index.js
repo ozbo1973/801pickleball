@@ -11,7 +11,7 @@ import Loading from "components/ui/Loading";
 import { Wrap, WrapItem, VStack, Center, Text } from "@chakra-ui/react";
 
 const Shop = ({ products, collections, seo, title }) => {
-  useUpdateState(products, collections);
+  useUpdateState({ products, collections });
 
   const displayProducts = () =>
     products?.length === 0 ? (
@@ -44,8 +44,7 @@ const Shop = ({ products, collections, seo, title }) => {
 
 export async function getServerSideProps(context) {
   const { collectionId = null } = context.query;
-  let products = [];
-  let collection = null;
+  const props = {};
   let errMsg = [];
 
   const defaultSEO = {
@@ -56,22 +55,26 @@ export async function getServerSideProps(context) {
   /* get collections for menu and products */
   const { collections, collectionErr = null } = await getCollections();
   if (collectionErr) errMsg.push("Issue with Collections");
+  props.collections = collections;
 
   /* check if collection id to determin which products to display */
   if (collectionId) {
-    const colResult = await getCollectionById(collectionId, 1);
-    if (colResult.collectionIdErr) errMsg.push("Issue with Collection by ID");
+    const { collection, collectionIdErr } = await getCollectionById(
+      collectionId,
+      1
+    );
+    if (collectionIdErr) errMsg.push("Issue with Collection by ID");
 
     if (errMsg.length === 0) {
-      collection = colResult.collection;
-      products = colResult.collection.products;
+      props.collection = collection;
+      props.products = collection.products;
     }
   } else {
-    const res = await fetchAllProducts();
-    if (res.productErr) errMsg.push("Issue with Getting Products");
+    const { products, productsErr } = await fetchAllProducts();
+    if (productsErr) errMsg.push("Issue with Getting Products");
 
     if (errMsg.length === 0) {
-      products = res.products;
+      props.products = products;
     }
   }
 
@@ -80,7 +83,7 @@ export async function getServerSideProps(context) {
     return { notFound: true };
   }
 
-  const { title, description } = collection || defaultSEO;
+  const { title, description } = props.collection || defaultSEO;
 
   const seo = {
     title: `Shop 801 Pickleball - ${title}`,
@@ -89,7 +92,7 @@ export async function getServerSideProps(context) {
   };
 
   return {
-    props: { products, collections, seo, title }, // will be passed to the page component as props
+    props: { ...props, seo, title }, // will be passed to the page component as props
   };
 }
 

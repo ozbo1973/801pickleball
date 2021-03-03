@@ -22,7 +22,7 @@ export const fetchAllProducts = async () => {
     const products = JSON.parse(JSON.stringify(res));
     return { products };
   } catch (error) {
-    return { productErr: error.message };
+    return { productsErr: error.message };
   }
 };
 
@@ -35,5 +35,15 @@ export const getCollectionById = async (id, show) => {
     return { collection };
   } catch (error) {
     return { collectionIdErr: error.message };
+  }
+};
+
+export const getProductByHandle = async (handle) => {
+  try {
+    const res = await client.product.fetchByHandle(handle);
+    const product = JSON.parse(JSON.stringify(res));
+    return { product };
+  } catch (error) {
+    return { productHandleErr: error.message };
   }
 };

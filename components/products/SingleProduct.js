@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useSelectedVariant } from "config/hooks";
-import { OPTION_LABELS } from "config";
 import Loading from "components/ui/Loading";
 import VariantOptions from "components/ui/VariantOptions";
 import NumberInput from "components/ui/NumberInput";

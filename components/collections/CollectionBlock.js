@@ -16,7 +16,7 @@ const CollectionBlock = () => {
         mb="1rem"
       />
 
-      <Flex justify="space-evenly">
+      <Flex direction={["column", "row"]} justify="space-evenly">
         {collections?.length === 0 ? (
           <Loading />
         ) : (

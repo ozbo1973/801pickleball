@@ -18,6 +18,7 @@ const CollectionCard = ({ collection }) => {
         textAlign="center"
         h="100%"
         maxWidth="sm"
+        p={3}
       >
         <Center>
           <Image

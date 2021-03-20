@@ -32,6 +32,7 @@ export const useSelectedVariant = (product) => {
   const [selectedVariant, setSelectedVariant] = useState();
   const [optionsSelected, setOptionsSelected] = useState({});
   const [loadingProduct, setLoadingProduct] = useState(true);
+
   let mounted;
 
   const handleOptionChange = async (option) => {
@@ -66,14 +67,20 @@ export const useSelectedVariant = (product) => {
     const productKeys = Object.keys(product).length;
     productKeys > 0 && setLoadingProduct(false);
 
+    /* run handle option to enable add to cart on items that dont require size choice. */
     if (productKeys > 0 && product.variants.length === 1) {
       const { name, value } = product.variants[0].selectedOptions[0];
       handleOptionChange({ [name]: value });
     }
-    return () => (mounted = false);
-  }, [product]);
 
-  return { selectedVariant, handleOptionChange, loadingProduct };
+    return () => (mounted = false);
+  }, []);
+
+  return {
+    selectedVariant,
+    handleOptionChange,
+    loadingProduct,
+  };
 };
 
 export const useScroll = () => {

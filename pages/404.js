@@ -11,7 +11,7 @@ const Error404 = () => {
       <CenterItem>
         <Heading>404 Error: Page Not found</Heading>
 
-        <Button action={() => router.push("/products")} size="lg">
+        <Button action={() => router.push("/shop")} size="lg">
           Return To Shop
         </Button>
       </CenterItem>

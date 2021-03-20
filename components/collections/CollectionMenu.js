@@ -4,11 +4,13 @@ import { Box, Stack, Heading, Select } from "@chakra-ui/react";
 
 const CollectionMenu = ({ collections }) => {
   const router = useRouter();
+  const shopPath = "/shop";
+  const collectionPath = "/shop/collections/[collectionId]";
 
   const handleOnSelect = (e) => {
-    const val = e.target.value === "all" ? null : e.target.value;
+    const val = e.target.value;
     router.push({
-      pathname: "/products",
+      pathname: !val ? shopPath : collectionPath,
       query: { collectionId: val },
     });
   };
@@ -23,7 +25,7 @@ const CollectionMenu = ({ collections }) => {
           fontSize="1.5rem"
           onChange={handleOnSelect}
         >
-          <option value="all">View all products</option>
+          <option value="">View all products</option>
           {collections.length > 0 &&
             collections.map((c) => (
               <option key={`mbOpt_${c.id}`} value={c.id}>
@@ -52,7 +54,10 @@ const CollectionMenu = ({ collections }) => {
   const displayMenuItem = (id = null, title = "All Products") => (
     <Link
       key={`dtOpt_${id}`}
-      href={{ pathname: "/products", query: { collectionId: id } }}
+      href={{
+        pathname: !id ? shopPath : collectionPath,
+        query: { collectionId: id },
+      }}
     >
       <Box
         cursor="pointer"

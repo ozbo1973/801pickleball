@@ -38,7 +38,7 @@ const Hero = () => {
           </Text>
 
           <Box mb="5rem">
-            <Button action={() => router.push("/products")} size="lg">
+            <Button action={() => router.push("/shop")} size="lg">
               Shop Now
             </Button>
           </Box>

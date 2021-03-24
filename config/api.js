@@ -16,6 +16,17 @@ export const getCollections = async () => {
   }
 };
 
+export const getCollectionByHandle = async (handle) => {
+  try {
+    const result = await client.collection.fetchByHandle(handle);
+    const collection = JSON.parse(JSON.stringify(result));
+
+    return { collection };
+  } catch (error) {
+    return { collectionHandleErr: error.message };
+  }
+};
+
 export const fetchAllProducts = async () => {
   try {
     const res = await client.product.fetchAll();

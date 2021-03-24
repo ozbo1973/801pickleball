@@ -1,4 +1,4 @@
-import { getCollectionById, getCollections } from "config/api";
+import { getCollections, getCollectionByHandle } from "config/api";
 import { useUpdateState } from "config/hooks";
 import BaseLayout from "components/layout/BaseLayout";
 import ShopLayout from "components/layout/ShopLayout";
@@ -34,7 +34,7 @@ export async function getStaticPaths() {
 
   // Get the paths we want to pre-render based on posts
   const paths = collections.map((c) => ({
-    params: { collectionId: c.id },
+    params: { collectionHandle: c.handle },
   }));
 
   // We'll pre-render only these paths at build time.
@@ -43,7 +43,7 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps(context) {
-  const { collectionId } = context.params;
+  const { collectionHandle } = context.params;
   let errMsg = [];
 
   /* get collections for menu and products */
@@ -51,11 +51,11 @@ export async function getStaticProps(context) {
   if (collectionErr) errMsg.push("Issue with Collections");
 
   /* get products from selected collection */
-  const { collection, collectionIdErr } = await getCollectionById(
-    collectionId,
-    1
+  const { collection, collectionHandleErr } = await getCollectionByHandle(
+    collectionHandle
   );
-  if (collectionIdErr) errMsg.push("Issue with Collections");
+
+  if (collectionHandleErr) errMsg.push("Issue with Collections");
 
   return {
     props: { collections, products: collection.products, collection, errMsg },

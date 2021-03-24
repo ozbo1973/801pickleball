@@ -5,14 +5,17 @@ import { Box, Stack, Heading, Select } from "@chakra-ui/react";
 const CollectionMenu = ({ collections }) => {
   const router = useRouter();
   const shopPath = "/shop";
-  const collectionPath = "/shop/collections/[collectionId]";
+  const collectionPath = "/shop/collections/[collectionHandle]";
 
   const handleOnSelect = (e) => {
     const val = e.target.value;
-    router.push({
-      pathname: !val ? shopPath : collectionPath,
-      query: { collectionId: val },
-    });
+    const path = !val
+      ? shopPath
+      : {
+          pathname: !val ? shopPath : collectionPath,
+          query: { collectionHandle: val },
+        };
+    router.push(path);
   };
 
   const displayMobileMenu = () => {
@@ -28,7 +31,7 @@ const CollectionMenu = ({ collections }) => {
           <option value="">View all products</option>
           {collections.length > 0 &&
             collections.map((c) => (
-              <option key={`mbOpt_${c.id}`} value={c.id}>
+              <option key={`mbOpt_${c.id}`} value={c.handle}>
                 {c.title}
               </option>
             ))}
@@ -46,18 +49,22 @@ const CollectionMenu = ({ collections }) => {
       {displayMenuItem()}
       {collections.length > 0 &&
         collections.map((collection) =>
-          displayMenuItem(collection.id, collection.title)
+          displayMenuItem(collection.id, collection.handle, collection.title)
         )}
     </Stack>
   );
 
-  const displayMenuItem = (id = null, title = "All Products") => (
+  const displayMenuItem = (id = null, handle, title = "All Products") => (
     <Link
       key={`dtOpt_${id}`}
-      href={{
-        pathname: !id ? shopPath : collectionPath,
-        query: { collectionId: id },
-      }}
+      href={
+        !id
+          ? shopPath
+          : {
+              pathname: collectionPath,
+              query: { collectionHandle: handle },
+            }
+      }
     >
       <Box
         cursor="pointer"

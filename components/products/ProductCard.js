@@ -1,12 +1,13 @@
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useSelectedVariant } from "config/hooks";
 import VariantOptions from "components/ui/VariantOptions";
 import AddToCartButton from "components/ui/AddToCartButton";
 import Loading from "components/ui/Loading";
 import InventoryBadge from "components/ui/InventoryBadge";
 import NumberInput from "components/ui/NumberInput";
-import { Box, Badge, Image, Flex } from "@chakra-ui/react";
+import { Box, Badge, Flex } from "@chakra-ui/react";
 
 const ProductCard = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
@@ -32,23 +33,30 @@ const ProductCard = ({ product }) => {
       display="flex"
       flexDirection="column"
     >
-      <Link
-        href={{
-          pathname: "/products/product/[productHandle]",
-          query: { productHandle: product.handle },
-        }}
-      >
-        <Image
-          objectFit="contain"
-          src={product.images[0].src}
-          alt={product.title}
-          overflow="hidden"
-          flexShrink={0}
-          boxSize="250px"
-          cursor="pointer"
-          m="0 auto"
-        />
-      </Link>
+      <Box w="100%" flexShrink={0}>
+        <Link
+          href={{
+            pathname: "/products/product/[productHandle]",
+            query: { productHandle: product.handle },
+          }}
+        >
+          <a>
+            <Box
+              overflow="hidden"
+              boxSize="15.625rem"
+              m="0 auto"
+              pos="relative"
+            >
+              <Image
+                layout="fill"
+                objectFit="contain"
+                src={product.images[0].src}
+                alt={product.title}
+              />
+            </Box>
+          </a>
+        </Link>
+      </Box>
 
       <Box p={[3, 1]} flexGrow={1}>
         <Box d="flex" alignItems="baseline" justifyContent="space-between">

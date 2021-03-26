@@ -1,6 +1,7 @@
+import Image from "next/image";
 import Menu from "components/nav/Menu";
 import PaymentOptions from "components/footer/PaymentOptions";
-import { Box, Grid, Image, Text, Center } from "@chakra-ui/react";
+import { Box, Grid, Text, Center } from "@chakra-ui/react";
 import styles from "styles/Footer.module.css";
 
 const Footer = () => {
@@ -12,7 +13,14 @@ const Footer = () => {
         fontWeight="Bold"
       >
         <Center pt={["1rem", 0]}>
-          <Image src="https://cdn.shopify.com/s/files/1/0528/7798/3897/files/801-pb-footer.png?v=1611838453" />
+          <Box boxSize="sm" pos="relative" w="100%" h="100%" overflow="hidden">
+            <Image
+              layout="fill"
+              alt="801 pickle ball large logo"
+              src="https://cdn.shopify.com/s/files/1/0528/7798/3897/files/801-pb-footer.png?v=1611838453"
+              objectFit="contain"
+            />
+          </Box>
         </Center>
 
         <Menu />

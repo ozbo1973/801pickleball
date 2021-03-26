@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { UNDER_CONSTRUCTION } from "config";
-import { Text, Box, Image, Center } from "@chakra-ui/react";
+import Image from "next/image";
+import { Text, Box, Center } from "@chakra-ui/react";
 
 const CollectionCard = ({ collection }) => {
   const pathname = UNDER_CONSTRUCTION ? "/" : "/products/";
@@ -21,12 +22,15 @@ const CollectionCard = ({ collection }) => {
         p={3}
       >
         <Center>
-          <Image
-            box="md"
-            src={collection.image.src}
-            fallbackSrc="https://via.placeholder.com/150"
-            objectFit="contain"
-          />
+          <Box boxSize="xs" pos="relative">
+            <Image
+              // box="md"
+              layout="fill"
+              src={collection.image.src}
+              alt={collection.title}
+              objectFit="contain"
+            />
+          </Box>
         </Center>
         <Text fontWeight="bold" w="100%">
           {collection.title}

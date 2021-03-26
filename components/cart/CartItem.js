@@ -1,4 +1,5 @@
-import { Grid, Text, Flex, Image, Icon, Box, VStack } from "@chakra-ui/react";
+import Image from "next/image";
+import { Grid, Text, Flex, Icon, Box, VStack } from "@chakra-ui/react";
 import { MdDelete } from "react-icons/md";
 
 const CartItem = ({ item, removeAction }) => (
@@ -12,20 +13,22 @@ const CartItem = ({ item, removeAction }) => (
     borderColor="brand.dark.600"
   >
     <Flex alignItems="center" justifyContent="center">
-      <Image
-        borderRadius="full"
-        boxSize="150px"
-        src={item.variant.image.src}
-        objectFit="scale-down"
-      />
+      <Box pos="relative" boxSize="150px" borderRadius="full">
+        <Image
+          layout="fill"
+          src={item.variant.image.src}
+          alt={item.title}
+          objectFit="scale-down"
+        />
+      </Box>
     </Flex>
 
     <Flex alignItems="center" justifyContent="center">
       <VStack spacing={3}>
         <Text fontWeight="bold">{item.title}</Text>
-        <Text>quanity: {item.quantity} </Text>
-        <Text>price: ${item.variant.price * item.quantity}</Text>
-        <Text>size: {item.variant.title}</Text>
+        <Text>Quanity: {item.quantity} </Text>
+        <Text>Price: ${item.variant.price * item.quantity}</Text>
+        <Text>Size: {item.variant.title}</Text>
         <Box textAlign="right" w="100%" pr="1rem">
           <Icon
             onClick={() => removeAction([item.id])}

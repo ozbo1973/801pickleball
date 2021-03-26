@@ -1,6 +1,6 @@
-import React from "react";
+import Image from "next/image";
 import { creditCardImages } from "config/helpers";
-import { Flex, Box, Image, Spacer, Text, VStack } from "@chakra-ui/react";
+import { Flex, Box, Spacer, Text, VStack } from "@chakra-ui/react";
 
 const PaymentOptions = () => {
   const creditCards = Object.keys(creditCardImages);
@@ -8,7 +8,7 @@ const PaymentOptions = () => {
   const displayCreditCards = () =>
     creditCards.map((card, i) => (
       <Box w="100%" key={card}>
-        <Image src={creditCardImages[card]} w={9} h={5} />
+        <Image src={creditCardImages[card]} width={25} height={25} />
         {i !== creditCards.length && <Spacer />}
       </Box>
     ));

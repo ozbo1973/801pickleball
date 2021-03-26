@@ -1,13 +1,14 @@
 import { useContext } from "react";
 import { useRouter } from "next/router";
+import Image from "next/image";
 import Link from "next/link";
-import { Flex, Image, Icon, Box, Badge } from "@chakra-ui/react";
+import { Flex, Icon, Box, Badge } from "@chakra-ui/react";
 import { ShopContext } from "contexts/ShopContext";
 import { MdMenu, MdShoppingCart } from "react-icons/md";
 
 const iconSizes = {
   icon: [25, 35],
-  logo: [60, 65],
+  logo: ["3.75rem", "4.0625rem"],
 };
 const Navbar = () => {
   const { icon, logo } = iconSizes;
@@ -37,14 +38,18 @@ const Navbar = () => {
       />
       {router.pathname !== "/" && (
         <Link href="/">
-          <Image
-            src="https://cdn.shopify.com/s/files/1/0528/7798/3897/files/logo-801.webp?v=1611838470"
-            w={logo}
-            h={logo}
-            cursor="pointer"
-            fallbackSrc="https://cdn.shopify.com/s/files/1/0528/7798/3897/files/logo-801.png?v=1614474944"
-            alt="801 pickleball main logo"
-          />
+          <a>
+            <Box w={logo} h={logo}>
+              <Image
+                src="https://cdn.shopify.com/s/files/1/0528/7798/3897/files/logo-801.png?v=1614474944"
+                width={65}
+                height={65}
+                // cursor="pointer"
+                // fallbackSrc="https://cdn.shopify.com/s/files/1/0528/7798/3897/files/logo-801.png?v=1614474944"
+                alt="801 pickleball main logo"
+              />
+            </Box>
+          </a>
         </Link>
       )}
 

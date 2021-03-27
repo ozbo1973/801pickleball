@@ -1,15 +1,15 @@
 import Link from "next/link";
-import { UNDER_CONSTRUCTION } from "config";
+import { UNDER_CONSTRUCTION, COLLECTION_PATH } from "config";
 import Image from "next/image";
 import { Text, Box, Center } from "@chakra-ui/react";
 
 const CollectionCard = ({ collection }) => {
-  const pathname = UNDER_CONSTRUCTION ? "/" : "/products/";
+  const pathname = UNDER_CONSTRUCTION ? "/" : COLLECTION_PATH;
   return (
     <Link
       href={{
         pathname,
-        query: { collectionId: collection.id },
+        query: { collectionHandle: collection.handle },
       }}
     >
       <Box

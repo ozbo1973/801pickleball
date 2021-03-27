@@ -1,11 +1,12 @@
 import { useRouter } from "next/router";
+import { COLLECTION_PATH } from "config";
 import Link from "next/link";
 import { Box, Stack, Heading, Select } from "@chakra-ui/react";
 
 const CollectionMenu = ({ collections }) => {
   const router = useRouter();
   const shopPath = "/shop";
-  const collectionPath = "/shop/collections/[collectionHandle]";
+  const collectionPath = COLLECTION_PATH;
 
   const handleOnSelect = (e) => {
     const val = e.target.value;

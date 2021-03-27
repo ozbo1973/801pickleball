@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Image from "next/image";
 import { useSelectedVariant } from "config/hooks";
 import Loading from "components/ui/Loading";
 import VariantOptions from "components/ui/VariantOptions";
@@ -6,7 +7,7 @@ import NumberInput from "components/ui/NumberInput";
 import NoInputControl from "components/ui/FormControlNoInput";
 import InventoryBadge from "components/ui/InventoryBadge";
 import AddToCart from "components/ui/AddToCartButton";
-import { Grid, Heading, Image, Flex, Stack, Badge } from "@chakra-ui/react";
+import { Grid, Box, Heading, Flex, Stack, Center } from "@chakra-ui/react";
 import CenterItem from "components/layout/CenterItem";
 
 const SingleProduct = ({ product }) => {
@@ -24,7 +25,14 @@ const SingleProduct = ({ product }) => {
   ) : (
     <Grid templateColumns={["repeat(1,1fr)", "repeat(2,1fr)"]} m="auto">
       <Flex justifyContent="center" alignItems="center">
-        <Image src={product.images[0].src} />
+        <Box pos="relative" width="50%" height="100%" overflow="hidden">
+          <Image
+            layout="fill"
+            src={product.images[0].src}
+            alt={product.title}
+            objectFit="contain"
+          />
+        </Box>
       </Flex>
 
       <Flex

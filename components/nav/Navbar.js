@@ -44,8 +44,6 @@ const Navbar = () => {
                 src="https://cdn.shopify.com/s/files/1/0528/7798/3897/files/logo-801.png?v=1614474944"
                 width={65}
                 height={65}
-                // cursor="pointer"
-                // fallbackSrc="https://cdn.shopify.com/s/files/1/0528/7798/3897/files/logo-801.png?v=1614474944"
                 alt="801 pickleball main logo"
               />
             </Box>

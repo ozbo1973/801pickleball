@@ -1,5 +1,6 @@
+import Image from "next/image";
 import Button from "components/ui/MainButton";
-import { Box, Flex, Heading, Image, Text } from "@chakra-ui/react";
+import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 
 const TextWithImage = ({
   reverse,
@@ -8,6 +9,7 @@ const TextWithImage = ({
   text,
   btnText,
   btnAction,
+  imageSize,
 }) => {
   const reverseSection = reverse ? "row-reverse" : "row";
 
@@ -16,14 +18,16 @@ const TextWithImage = ({
   };
 
   return (
-    <Box p="1rem" borderBottom="2px solid" borderColor="brand.red.500">
-      <Flex flexDir={["column", reverseSection]} w="100%">
-        <Image
-          boxSize="sm"
-          src={image}
-          objectFit="contain"
-          w={["100%", "50%"]}
-        />
+    <Box p="1rem" borderBottom="2px solid" borderColor="brand.red.500" w="100%">
+      <Flex flexDir={["column", reverseSection]}>
+        <Box textAlign="center" pt="2rem" w={["100%", "50%"]}>
+          <Image
+            src={image}
+            alt={`${heading} logo`}
+            width={imageSize.w}
+            height={imageSize.h}
+          />
+        </Box>
         <Flex
           w={["100%", "50%"]}
           flexDir="column"
@@ -31,7 +35,9 @@ const TextWithImage = ({
           alignItems="center"
           p={["1rem", "2rem"]}
         >
-          <Heading p={["1rem", "2rem"]}>{heading && heading}</Heading>
+          <Heading textAlign="center" p={["1rem", "2rem"]}>
+            {heading && heading}
+          </Heading>
           <Box p={["1rem", "2rem"]}>{text && text}</Box>
           {displayButton()}
         </Flex>

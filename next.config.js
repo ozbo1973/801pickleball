@@ -5,6 +5,7 @@ module.exports = {
       "ogdenpickleball.org",
       "static.wixstatic.com",
       "safeharborhope.org",
+      "via.placeholder.com",
     ],
   },
 };

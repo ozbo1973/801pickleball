@@ -12,16 +12,23 @@ const Footer = () => {
         color="white"
         fontWeight="Bold"
       >
-        <Center pt={["1rem", 0]}>
-          <Box boxSize="sm" pos="relative" w="100%" h="100%" overflow="hidden">
-            <Image
-              layout="fill"
-              alt="801 pickle ball large logo"
-              src="https://cdn.shopify.com/s/files/1/0528/7798/3897/files/801-pb-footer.png?v=1611838453"
-              objectFit="contain"
-            />
-          </Box>
-        </Center>
+        <Box
+          m="0 auto"
+          w="100%"
+          pos="relative"
+          // width="9.5rem"
+          // maxH="8.5rem"
+          overflow="hidden"
+        >
+          <Image
+            layout="fill"
+            alt="801 pickle ball large logo"
+            src="https://cdn.shopify.com/s/files/1/0528/7798/3897/files/801-pb-footer.png?v=1611838453"
+            objectFit="contain"
+            // width={200}
+            // height={200}
+          />
+        </Box>
 
         <Menu />
         <PaymentOptions />
